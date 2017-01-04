@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="242.0" prefWidth="258.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="educationframe.EducationDocumentController">
+   <children>
+      <JFXButton layoutX="104.0" layoutY="183.0" prefHeight="42.0" prefWidth="51.0" ripplerFill="#ebecf0" text="Login" AnchorPane.leftAnchor="104.0" AnchorPane.rightAnchor="103.0" />
+      <JFXTextField layoutX="61.0" layoutY="87.0" maxWidth="153.0" minWidth="118.0" prefHeight="31.0" prefWidth="153.0" promptText="Username" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="54.0" />
+      <JFXTextField layoutX="61.0" layoutY="130.0" maxWidth="153.0" minWidth="135.0" prefHeight="31.0" prefWidth="153.0" promptText="Password" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="54.0" />
+      <Label layoutX="70.0" layoutY="29.0" prefHeight="36.0" prefWidth="135.0" text="WELCOME" textFill="#f59e0c" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="63.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
