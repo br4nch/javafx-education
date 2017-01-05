@@ -5,6 +5,7 @@
  */
 package educationframe;
 
+import dialog.FxDialog;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -17,19 +18,16 @@ import javafx.scene.control.Label;
  * @author Le Tam
  */
 public class EducationDocumentController implements Initializable {
-    
+
     @FXML
-    private Label label;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
+    public void btnClick(ActionEvent event) {
+        FxDialog dialog = new FxDialog();
+        dialog.showInformation("Hi", "Good Morning y'all!");
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }
