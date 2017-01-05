@@ -9,8 +9,10 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
+import dialog.ShowDialog;
 import org.bson.Document;
 import java.lang.reflect.Type;
+import java.net.ConnectException;
 
 /**
  *
@@ -22,6 +24,7 @@ public class MongoConnector {
     private static MongoClient mongoClient;
     private static MongoDatabase database;
     private static MongoCollection<Document> collection;
+    private static ShowDialog dialog = new ShowDialog();
 
     //CONSTRUCTOR---------------------------------------------------------------
     public MongoConnector() {
@@ -29,7 +32,10 @@ public class MongoConnector {
 
     //FUNCTION------------------------------------------------------------------
     public void ConnectMongoDB(String serverName, int port) {
-        mongoClient = new MongoClient(serverName, port);
+        if (port > 0) {
+            mongoClient = new MongoClient(serverName, port);
+        }
+        dialog.dialogError("Thông báo", null, "Kết nối server thất bại");
     }
 
     public void getDB(String dbName) {

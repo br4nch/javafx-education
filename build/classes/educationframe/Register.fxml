@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="educationframe.EducationDocumentController">
+   <children>
+      <Pane layoutX="115.0" layoutY="73.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXTextField focusColor="#3fa8a2" labelFloat="true" layoutX="135.0" layoutY="96.0" maxWidth="244.0" minWidth="244.0" prefHeight="31.0" prefWidth="244.0" promptText="Username" />
+            <JFXTextField focusColor="#3fa8a2" labelFloat="true" layoutX="135.0" layoutY="141.0" maxWidth="244.0" minWidth="244.0" prefHeight="31.0" prefWidth="244.0" promptText="Email" />
+            <JFXDatePicker layoutX="135.0" layoutY="185.0" prefHeight="31.0" prefWidth="244.0" promptText="Date of birth" />
+            <JFXPasswordField focusColor="#3fa8a2" labelFloat="true" layoutX="135.0" layoutY="234.0" maxWidth="244.0" minWidth="237.0" prefHeight="31.0" prefWidth="244.0" promptText="Password" />
+            <JFXPasswordField focusColor="#3fa8a2" labelFloat="true" layoutX="132.0" layoutY="285.0" maxWidth="244.0" minWidth="237.0" prefHeight="31.0" prefWidth="244.0" promptText="Password again" />
+            <ImageView fitHeight="63.0" fitWidth="200.0" layoutX="172.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../register.jpg" />
+               </image>
+            </ImageView>
+            <JFXButton buttonType="RAISED" layoutX="158.0" layoutY="348.0" style="-fx-background-color: #3fa8a2;" text="Confirm" />
+            <JFXButton buttonType="RAISED" layoutX="286.0" layoutY="348.0" style="-fx-background-color: #3fa8a2;" text="Exit" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

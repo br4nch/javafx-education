@@ -22,7 +22,7 @@ public class Main {
 
     public static void main(String[] args) {
         MongoConnector mongoConnector = new MongoConnector();
-        mongoConnector.ConnectMongoDB("localhost", 27017);
+        mongoConnector.ConnectMongoDB("localhost", -5);
         mongoConnector.getDB("test");
         mongoConnector.getColl("huhu");
         Document doc = new Document("name", "MongoDB")
