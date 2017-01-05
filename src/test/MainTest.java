@@ -19,6 +19,7 @@ import org.bson.Document;
  * @author Le Tam
  */
 public class MainTest {
+
     public static void main(String[] args) {
 //        System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
         MongoConnector mongoConnector = new MongoConnector();
@@ -39,6 +40,8 @@ public class MainTest {
         }.getType();
         u = gson.fromJson(doc.toJson(), type);
         String a = u.getName();
-        System.out.println(a);
+        String b = u.getType();
+        String c = u.getCount();
+        System.out.println(a + " " + b + " " + c);
     }
 }
