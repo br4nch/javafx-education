@@ -24,7 +24,7 @@
                   <Font size="15.0" />
                </font>
             </JFXTextField>
-            <JFXButton layoutX="196.0" layoutY="327.0" style="-fx-background-color: #3fa2a8;" text="Login">
+            <JFXButton layoutX="196.0" layoutY="327.0" onAction="#btnClick" style="-fx-background-color: #3fa2a8;" text="Login">
                <font>
                   <Font size="15.0" />
                </font>

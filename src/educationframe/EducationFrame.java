@@ -5,6 +5,7 @@
  */
 package educationframe;
 
+import dialog.FxDialog;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
