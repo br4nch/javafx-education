@@ -29,13 +29,6 @@ public class MongoConnector {
     public MongoConnector() {
     }
 
-    public static MongoConnector getInstance() {
-        if (connector == null) {
-            connector = new MongoConnector();
-        }
-        return connector;
-    }
-
     //FUNCTION------------------------------------------------------------------
     public void ConnectMongoDB(String serverName, int port) {
         if (mongoClient == null) {
@@ -44,13 +37,24 @@ public class MongoConnector {
     }
 
     public void getDB(String dbName) {
-        database = mongoClient.getDatabase(dbName);
+        if (database == null) {
+            database = mongoClient.getDatabase(dbName);
+        }
     }
 
-    public void getColl(String collName) {
-        collection = database.getCollection(collName);
+    public MongoCollection getColl(String collName) {
+        if (collection == null) {
+            collection = database.getCollection(collName);
+        }
+        return collection;
     }
-
+    
+    public long doCountListCourses(String collName) {
+        if (collection == null) {
+            collection = database.getCollection(collName);
+        }
+        return collection.count();
+    }
     public void InsertDocument(Document doc) {
         collection.insertOne(doc);
     }
