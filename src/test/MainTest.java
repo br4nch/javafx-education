@@ -5,12 +5,10 @@
  */
 package test;
 
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.BasicDBObject;
 import com.mongodb.util.JSON;
-import dialog.FxDialog;
 import java.lang.reflect.Type;
 import model.User;
 import mongo.connect.MongoConnector;
@@ -20,8 +18,7 @@ import org.bson.Document;
  *
  * @author Le Tam
  */
-public class Test {
-
+public class MainTest {
     public static void main(String[] args) {
 //        System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
         MongoConnector mongoConnector = new MongoConnector();
@@ -33,10 +30,8 @@ public class Test {
                 .append("count", 1);
 //        mongoConnector.InsertDocument(doc);
 //        Document myDoc = collection.find().first();
-        String json = JSON.serialize(doc);
-        BasicDBObject bson = (BasicDBObject) JSON.parse(json);
+        BasicDBObject bson = (BasicDBObject) JSON.parse(doc.toJson());
         System.out.println(doc);
-        System.out.println(json);
         System.out.println(bson);
         Gson gson = new Gson();
         User u = new User();
@@ -44,6 +39,6 @@ public class Test {
         }.getType();
         u = gson.fromJson(doc.toJson(), type);
         String a = u.getName();
-        System.out.println(doc);
+        System.out.println(a);
     }
 }
