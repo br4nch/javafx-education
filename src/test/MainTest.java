@@ -15,7 +15,6 @@ import com.mongodb.util.JSON;
 import java.lang.reflect.Type;
 import model.User;
 import mongo.connect.MongoConnector;
-import mongo.query.MongoQuery;
 import org.bson.Document;
 
 /**
@@ -30,15 +29,14 @@ public class MainTest {
 //        MongoDatabase database = client.getDatabase("education");
 //        MongoCollection<Document> collection = database.getCollection("course");
 //        System.out.println(collection.count());
-
         MongoConnector connector = new MongoConnector();
-        connector.ConnectMongoDB("localhost", 27017);
-        connector.getDB("education");
+//        connector.ConnectMongoDB("localhost", 27017);
+//        connector.getDB("education");
 //        connector.getColl("course");
-        System.out.println(connector.doCountListCourses());
-//        Document doc = new Document("name", "MongoDB")
-//                .append("type", "database")
-//                .append("count", 1);
+//        System.out.println(connector.doCountListCourses());
+        Document doc = new Document("name", "MongoDB")
+                .append("type", "database")
+                .append("count", 1);
 //        mongoConnector.InsertDocument(doc);
 //        Document myDoc = collection.find().first();
 //        BasicDBObject bson = (BasicDBObject) JSON.parse(doc.toJson());

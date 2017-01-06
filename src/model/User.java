@@ -12,20 +12,20 @@ package model;
 public class User {
 
     private Object _id;
-    private String name;
-    private String type;
-    private String count;
+    private String username;
+    private String password;
+    private String role;
 
     public User() {
     }
 
-    public User(String _id, String name, String type, String count) {
+    public User(Object _id, String username, String password, String role) {
         this._id = _id;
-        this.name = name;
-        this.type = type;
-        this.count = count;
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
-    
+
     /**
      * @return the _id
      */
@@ -41,45 +41,45 @@ public class User {
     }
 
     /**
-     * @return the name
+     * @return the username
      */
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
     /**
-     * @param name the name to set
+     * @param username the username to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
-     * @return the type
+     * @return the password
      */
-    public String getType() {
-        return type;
+    public String getPassword() {
+        return password;
     }
 
     /**
-     * @param type the type to set
+     * @param password the password to set
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**
-     * @return the count
+     * @return the role
      */
-    public String getCount() {
-        return count;
+    public String getRole() {
+        return role;
     }
 
     /**
-     * @param count the count to set
+     * @param role the role to set
      */
-    public void setCount(String count) {
-        this.count = count;
+    public void setRole(String role) {
+        this.role = role;
     }
+
 }
-
