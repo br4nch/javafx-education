@@ -20,6 +20,7 @@ import java.net.ConnectException;
 public class MongoConnector {
 
     //VARIABLES-----------------------------------------------------------------
+    private static MongoConnector connector;
     private static MongoClient mongoClient;
     private static MongoDatabase database;
     private static MongoCollection<Document> collection;
@@ -28,9 +29,18 @@ public class MongoConnector {
     public MongoConnector() {
     }
 
+    public static MongoConnector getInstance() {
+        if (connector == null) {
+            connector = new MongoConnector();
+        }
+        return connector;
+    }
+
     //FUNCTION------------------------------------------------------------------
     public void ConnectMongoDB(String serverName, int port) {
-        mongoClient = new MongoClient(serverName, port);
+        if (mongoClient == null) {
+            mongoClient = new MongoClient(serverName, port);
+        }
     }
 
     public void getDB(String dbName) {
