@@ -8,7 +8,9 @@ package test;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.BasicDBObject;
+import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
 import java.lang.reflect.Type;
 import model.User;
@@ -23,13 +25,17 @@ import org.bson.Document;
 public class MainTest {
 
     public static void main(String[] args) {
-//        "localhost", "education",
-//        System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
+
+//        MongoClient client = new MongoClient("localhost", 27017);
+//        MongoDatabase database = client.getDatabase("education");
+//        MongoCollection<Document> collection = database.getCollection("course");
+//        System.out.println(collection.count());
+
         MongoConnector connector = new MongoConnector();
         connector.ConnectMongoDB("localhost", 27017);
         connector.getDB("education");
-        connector.getColl("course");
-//        System.out.println(collection.count());
+//        connector.getColl("course");
+        System.out.println(connector.doCountListCourses("course"));
 //        Document doc = new Document("name", "MongoDB")
 //                .append("type", "database")
 //                .append("count", 1);

@@ -35,47 +35,45 @@ public class MongoConnector {
             mongoClient = new MongoClient(serverName, port);
         }
     }
-
+    
     public void getDB(String dbName) {
         if (database == null) {
             database = mongoClient.getDatabase(dbName);
         }
     }
-
-    public MongoCollection getColl(String collName) {
-//        if (collection == null) {
+    
+    public void getColl(String collName) {
+        if (collection == null) {
             collection = database.getCollection(collName);
-            System.out.println("ádsadsa");
-            System.out.println(collection.count() + "đá");
-            return collection;
-//        }
-//        return collection;
+            System.out.println(collection.find() + "asd");
+        }
     }
-    public void getListCourses(String serverName,String dbName,String colName) {
+
+    public void getListCourses(String serverName, String dbName, String colName) {
         ConnectMongoDB("localhost", 27017);
         getDB("education");
         getColl("course");
-        System.out.println(collection.count());
+        System.out.println(collection.find());
         
     }
     
     public long doCountListCourses(String collName) {
-        if (collection == null) {
-            collection = database.getCollection(collName);
-        }
-        return collection.count();
+        collection = database.getCollection(collName);
+        long a = collection.count();
+        return a;
     }
+
     public void InsertDocument(Document doc) {
         collection.insertOne(doc);
     }
-
+    
     public void DeleteDocument(Document doc) {
         collection.deleteOne(doc);
-
+        
     }
-
+    
     public void UpdateDocument(Document doc, Document doc1) {
         collection.updateOne(doc, doc1);
     }
-
+    
 }
