@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -21,6 +22,9 @@ import javafx.scene.control.Label;
  */
 public class EducationDocumentController implements Initializable {
 
+    @FXML
+    private ImageView imgLogin;
+    
     @FXML
     private JFXTextField tfUsername;
 

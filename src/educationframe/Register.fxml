@@ -21,7 +21,7 @@
             <JFXPasswordField focusColor="#3fa8a2" labelFloat="true" layoutX="53.0" layoutY="292.0" maxWidth="244.0" minWidth="237.0" prefHeight="31.0" prefWidth="244.0" promptText="Password again" />
             <ImageView fitHeight="63.0" fitWidth="200.0" layoutX="93.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../img/register.jpg" />
+                  <Image url="@../img/register.jpg" />
                </image>
             </ImageView>
             <JFXButton buttonType="RAISED" layoutX="69.0" layoutY="337.0" prefHeight="37.0" prefWidth="83.0" style="-fx-background-color: #3fa8a2;" text="Confirm">
