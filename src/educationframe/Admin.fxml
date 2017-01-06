@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.TextField?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -11,6 +10,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -112,7 +112,7 @@
                                                 <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Sản phẩm" GridPane.rowIndex="5">
+                                          <Label text="Tác giả" GridPane.rowIndex="5">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
@@ -127,41 +127,41 @@
                                                 <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Label" GridPane.columnIndex="1">
+                                          <TextField GridPane.columnIndex="1">
                                              <font>
-                                                <Font size="20.0" />
+                                                <Font size="15.0" />
                                              </font>
-                                          </Label>
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          </TextField>
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <font>
-                                                <Font size="20.0" />
+                                                <Font size="15.0" />
                                              </font>
-                                          </Label>
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                          </TextField>
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <font>
-                                                <Font size="20.0" />
+                                                <Font size="15.0" />
                                              </font>
-                                          </Label>
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                          </TextField>
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="3">
                                              <font>
-                                                <Font size="20.0" />
+                                                <Font size="15.0" />
                                              </font>
-                                          </Label>
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                          </TextField>
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="4">
                                              <font>
-                                                <Font size="20.0" />
+                                                <Font size="15.0" />
                                              </font>
-                                          </Label>
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                          </TextField>
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="5">
                                              <font>
-                                                <Font size="20.0" />
+                                                <Font size="15.0" />
                                              </font>
-                                          </Label>
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                          </TextField>
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="6">
                                              <font>
-                                                <Font size="20.0" />
+                                                <Font size="15.0" />
                                              </font>
-                                          </Label>
+                                          </TextField>
                                        </children>
                                     </GridPane>
                                     <Label layoutX="122.0" layoutY="14.0" text="Chi Tiết Khóa Học" textFill="#1894af">
@@ -169,7 +169,7 @@
                                           <Font name="System Bold" size="50.0" />
                                        </font>
                                     </Label>
-                                    <JFXButton defaultButton="true" layoutX="82.0" layoutY="546.0" prefHeight="50.0" prefWidth="150.0" text="Thêm">
+                                    <JFXButton defaultButton="true" layoutX="82.0" layoutY="546.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-image: url(http://findicons.com/files/icons/99/office/128/add1.png);" text="Thêm">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
