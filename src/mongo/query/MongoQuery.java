@@ -17,18 +17,4 @@ import org.bson.Document;
  */
 public class MongoQuery {
 
-//    private static MongoConnector connector;
-    private static MongoClient mongoClient;
-    private static MongoDatabase database;
-    private static MongoCollection<Document> collection;
-
-    public void getListCourses() {
-        MongoConnector connector = new MongoConnector();
-        connector.ConnectMongoDB("localhost", 27017);
-        connector.getDB("education");
-        collection = connector.getColl("course");
-        System.out.println(collection.count());
-        
-    }
-
 }

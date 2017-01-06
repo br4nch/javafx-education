@@ -42,11 +42,19 @@ public class MongoConnector {
         }
     }
 
-    public MongoCollection getColl(String collName) {
-        if (collection == null) {
+    public void getColl(String collName) {
+//        if (collection == null) {
             collection = database.getCollection(collName);
-        }
-        return collection;
+            System.out.println(collection.count() + "đá");
+//        }
+//        return collection;
+    }
+    public void getListCourses(String serverName,String dbName,String colName) {
+        ConnectMongoDB("localhost", 27017);
+        getDB("education");
+        getColl("course");
+        System.out.println(collection.count());
+        
     }
     
     public long doCountListCourses(String collName) {

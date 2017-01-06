@@ -23,13 +23,12 @@ import org.bson.Document;
 public class MainTest {
 
     public static void main(String[] args) {
-        MongoQuery mongoQuery = new MongoQuery();
-        mongoQuery.getListCourses();
+//        "localhost", "education",
 //        System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
-//        MongoConnector connector = new MongoConnector();
-//        connector.ConnectMongoDB("localhost", 27017);
-//        connector.getDB("education");
-//        connector.getColl("course");
+        MongoConnector connector = new MongoConnector();
+        connector.ConnectMongoDB("localhost", 27017);
+        connector.getDB("education");
+        connector.getColl("course");
 //        System.out.println(collection.count());
 //        Document doc = new Document("name", "MongoDB")
 //                .append("type", "database")
