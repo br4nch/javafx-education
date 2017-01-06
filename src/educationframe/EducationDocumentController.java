@@ -5,6 +5,8 @@
  */
 package educationframe;
 
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import dialog.FxDialog;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +20,22 @@ import javafx.scene.control.Label;
  * @author Le Tam
  */
 public class EducationDocumentController implements Initializable {
+
+    @FXML
+    private JFXTextField tfUsername;
+
+    @FXML
+    private JFXPasswordField tfPassword;
+
+    @FXML
+    void doLogin(ActionEvent event) {
+
+    }
+
+    @FXML
+    void goToRegister(ActionEvent event) {
+
+    }
 
     @FXML
     public void btnClick(ActionEvent event) {
