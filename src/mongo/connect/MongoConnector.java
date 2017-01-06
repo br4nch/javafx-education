@@ -42,10 +42,12 @@ public class MongoConnector {
         }
     }
 
-    public void getColl(String collName) {
+    public MongoCollection getColl(String collName) {
 //        if (collection == null) {
             collection = database.getCollection(collName);
+            System.out.println("ádsadsa");
             System.out.println(collection.count() + "đá");
+            return collection;
 //        }
 //        return collection;
     }
