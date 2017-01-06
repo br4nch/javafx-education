@@ -66,9 +66,9 @@
                                           <Font size="20.0" />
                                        </font></TextField>
                                     <Button layoutX="614.0" layoutY="26.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url(https://cdn1.iconfinder.com/data/icons/CrystalClear/128x128/apps/xmag.png); -fx-background-repeat: no-repeat; -fx-background-position: center; -fx-background-size: 100%;" />
-                                    <TableView layoutX="14.0" layoutY="107.0" prefHeight="550.0" prefWidth="650.0" tableMenuButtonVisible="true">
+                                    <TableView layoutX="14.0" layoutY="111.0" prefHeight="587.0" prefWidth="717.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="111.0">
                                        <columns>
-                                          <TableColumn prefWidth="75.0" text="Mã" />
+                                          <TableColumn prefWidth="75.0" text="Tên khóa học" />
                                           <TableColumn prefWidth="75.0" text="Khóa học" />
                                           <TableColumn prefWidth="193.0" text="Giá" />
                                        </columns>
@@ -119,12 +119,12 @@
                                                 <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Giá123213" textFill="#30afe1" GridPane.rowIndex="5">
+                                          <Label text="Giá" textFill="#30afe1" GridPane.rowIndex="5">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <TextField disable="true" editable="false" GridPane.columnIndex="1">
+                                          <TextField editable="false" GridPane.columnIndex="1">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>

@@ -21,9 +21,9 @@
    <children>
       <MenuBar layoutX="-96.0" layoutY="-103.0" prefHeight="700.0" prefWidth="1366.0" AnchorPane.bottomAnchor="-48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <menus>
-            <Menu mnemonicParsing="false" text="User">
+            <Menu mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem mnemonicParsing="false" text="New User" />
+                  <MenuItem mnemonicParsing="false" text="Register" />
                   <MenuItem mnemonicParsing="false" text="Log Out" />
                   <MenuItem mnemonicParsing="false" text="Exit!" />
                </items>
@@ -42,7 +42,7 @@
       </MenuBar>
       <TabPane layoutX="367.0" layoutY="422.0" prefHeight="700.0" prefWidth="1366.0" tabClosingPolicy="ALL_TABS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="20.0">
          <tabs>
-            <Tab text="Untitled Tab 1">
+            <Tab text="Khóa học">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="349.0" prefWidth="598.0">
                      <children>
@@ -67,7 +67,7 @@
                                        </font>
                                     </TextField>
                                     <Button layoutX="614.0" layoutY="26.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url(https://cdn1.iconfinder.com/data/icons/CrystalClear/128x128/apps/xmag.png); -fx-background-repeat: no-repeat; -fx-background-position: center; -fx-background-size: 100%;" />
-                                    <TableView layoutX="14.0" layoutY="107.0" prefHeight="550.0" prefWidth="650.0" tableMenuButtonVisible="true">
+                                    <TableView layoutX="100.0" layoutY="112.0" prefHeight="586.0" prefWidth="717.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="112.0">
                                        <columns>
                                           <TableColumn prefWidth="75.0" text="Mã" />
                                           <TableColumn prefWidth="75.0" text="Khóa học" />
@@ -172,7 +172,12 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Untitled Tab 2">
+            <Tab text="Giỏ Hàng">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="User">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
