@@ -35,7 +35,7 @@ public class MainTest {
         connector.ConnectMongoDB("localhost", 27017);
         connector.getDB("education");
 //        connector.getColl("course");
-        System.out.println(connector.doCountListCourses("course"));
+        System.out.println(connector.doCountListCourses());
 //        Document doc = new Document("name", "MongoDB")
 //                .append("type", "database")
 //                .append("count", 1);

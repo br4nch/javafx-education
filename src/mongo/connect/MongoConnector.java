@@ -45,22 +45,11 @@ public class MongoConnector {
     public void getColl(String collName) {
         if (collection == null) {
             collection = database.getCollection(collName);
-            System.out.println(collection.find() + "asd");
         }
     }
-
-    public void getListCourses(String serverName, String dbName, String colName) {
-        ConnectMongoDB("localhost", 27017);
-        getDB("education");
-        getColl("course");
-        System.out.println(collection.find());
-        
-    }
     
-    public long doCountListCourses(String collName) {
-        collection = database.getCollection(collName);
-        long a = collection.count();
-        return a;
+    public long doCountListCourses() {
+        return collection.count();
     }
 
     public void InsertDocument(Document doc) {
