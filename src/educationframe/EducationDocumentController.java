@@ -22,6 +22,7 @@ import javafx.scene.image.ImageView;
  */
 public class EducationDocumentController implements Initializable {
 
+    
     @FXML
     private ImageView imgLogin;
     

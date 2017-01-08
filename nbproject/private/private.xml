@@ -5,6 +5,7 @@
         <group>
             <file>file:/D:/MeteorjsProject/javafx-education/src/educationframe/EducationFrame.java</file>
             <file>file:/D:/MeteorjsProject/javafx-education/nbproject/jfx-impl.xml</file>
+            <file>file:/D:/MeteorjsProject/javafx-education/src/mongo/connect/MongoConnector.java</file>
             <file>file:/D:/MeteorjsProject/javafx-education/src/test/MainTest.java</file>
             <file>file:/D:/MeteorjsProject/javafx-education/src/educationframe/EducationDocumentController.java</file>
         </group>
