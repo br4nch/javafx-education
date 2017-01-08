@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.image.Image?>
@@ -10,36 +9,35 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="educationframe.EducationDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="372.0" prefWidth="349.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="educationframe.EducationDocumentController">
    <children>
-      <Pane layoutX="100.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="52.0" prefHeight="400.0" prefWidth="420.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="186.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgLogin" fitHeight="150.0" fitWidth="200.0" layoutX="75.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                 <Image url="@../../../login.jpg" />
+                 <Image url="@../img/login.jpg" />
                </image>
             </ImageView>
-            <JFXTextField focusColor="#3fa2a8" labelFloat="true" layoutX="160.0" layoutY="128.0" maxWidth="273.0" minWidth="273.0" prefHeight="31.0" prefWidth="273.0" promptText="Username">
+            <JFXTextField fx:id="tfUsername" focusColor="#3fa2a8" labelFloat="true" layoutX="38.0" layoutY="144.0" maxWidth="273.0" minWidth="273.0" prefHeight="31.0" prefWidth="273.0" promptText="Username">
                <font>
                   <Font size="15.0" />
                </font>
             </JFXTextField>
-            <JFXButton layoutX="196.0" layoutY="327.0" onAction="#btnClick" style="-fx-background-color: #3fa2a8;" text="Login">
+            <JFXButton layoutX="72.0" layoutY="305.0" onAction="#doLogin" style="-fx-background-color: #3fa2a8;" text="Login">
                <font>
                   <Font size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="312.0" layoutY="327.0" style="-fx-background-color: #3fa2a8;" text="Register">
+            <JFXButton layoutX="188.0" layoutY="305.0" onAction="#goToRegister" style="-fx-background-color: #3fa2a8;" text="Register">
                <font>
                   <Font size="15.0" />
                </font>
             </JFXButton>
-            <JFXPasswordField focusColor="#3fa2a8" labelFloat="true" layoutX="160.0" layoutY="200.0" maxWidth="273.0" minWidth="273.0" prefHeight="31.0" prefWidth="273.0" promptText="Password">
+            <JFXPasswordField fx:id="tfPassword" focusColor="#3fa2a8" labelFloat="true" layoutX="38.0" layoutY="216.0" maxWidth="273.0" minWidth="273.0" prefHeight="31.0" prefWidth="273.0" promptText="Password">
                <font>
                   <Font size="15.0" />
                </font>
             </JFXPasswordField>
-            <JFXComboBox editable="true" layoutX="164.0" layoutY="270.0" prefHeight="25.0" prefWidth="273.0" promptText="User type" />
          </children>
       </Pane>
    </children>

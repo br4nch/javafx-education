@@ -29,39 +29,40 @@ public class MongoConnector {
     public MongoConnector() {
     }
 
-    public static MongoConnector getInstance() {
-        if (connector == null) {
-            connector = new MongoConnector();
-        }
-        return connector;
-    }
-
     //FUNCTION------------------------------------------------------------------
     public void ConnectMongoDB(String serverName, int port) {
         if (mongoClient == null) {
             mongoClient = new MongoClient(serverName, port);
         }
     }
-
+    
     public void getDB(String dbName) {
-        database = mongoClient.getDatabase(dbName);
+        if (database == null) {
+            database = mongoClient.getDatabase(dbName);
+        }
     }
-
+    
     public void getColl(String collName) {
-        collection = database.getCollection(collName);
+        if (collection == null) {
+            collection = database.getCollection(collName);
+        }
+    }
+    
+    public long doCountListCourses() {
+        return collection.count();
     }
 
     public void InsertDocument(Document doc) {
         collection.insertOne(doc);
     }
-
+    
     public void DeleteDocument(Document doc) {
         collection.deleteOne(doc);
-
+        
     }
-
+    
     public void UpdateDocument(Document doc, Document doc1) {
         collection.updateOne(doc, doc1);
     }
-
+    
 }
