@@ -33,7 +33,8 @@ public class EducationDocumentController implements Initializable {
 
     @FXML
     void doLogin(ActionEvent event) {
-
+        String password = tfPassword.getText();
+        String username = tfUsername.getText();
     }
 
     @FXML
