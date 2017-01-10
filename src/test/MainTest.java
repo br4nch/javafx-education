@@ -10,11 +10,16 @@ import com.google.gson.reflect.TypeToken;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import model.Course;
 import model.User;
 import mongo.connect.MongoConnector;
+import mongo.ulti.ConvertUtil;
 import org.bson.Document;
 
 /**
@@ -24,32 +29,31 @@ import org.bson.Document;
 public class MainTest {
 
     public static void main(String[] args) {
-
-//        MongoClient client = new MongoClient("localhost", 27017);
-//        MongoDatabase database = client.getDatabase("education");
-//        MongoCollection<Document> collection = database.getCollection("course");
-//        System.out.println(collection.count());
-        MongoConnector connector = new MongoConnector();
-//        connector.ConnectMongoDB("localhost", 27017);
-//        connector.getDB("education");
-//        connector.getColl("course");
-//        System.out.println(connector.doCountListCourses());
-        Document doc = new Document("name", "MongoDB")
-                .append("type", "database")
-                .append("count", 1);
-//        mongoConnector.InsertDocument(doc);
-//        Document myDoc = collection.find().first();
-//        BasicDBObject bson = (BasicDBObject) JSON.parse(doc.toJson());
-//        System.out.println(doc);
-//        System.out.println(bson);
-//        Gson gson = new Gson();
-//        User u = new User();
-//        Type type = new TypeToken<User>() {
-//        }.getType();
-//        u = gson.fromJson(doc.toJson(), type);
-//        String a = u.getName();
-//        String b = u.getType();
-//        String c = u.getCount();
-//        System.out.println(a + " " + b + " " + c);
+        ConvertUtil convertUtil = new ConvertUtil();
+        Course c = new Course();
+        MongoClient client = new MongoClient("localhost", 27017);
+        MongoDatabase database = client.getDatabase("education");
+        MongoCollection<Document> collection = database.getCollection("course");
+        Document doc = new Document();
+        MongoCursor<Document> cursor = collection.find().iterator();
+        List<Course> list = new ArrayList<Course>();
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<Course>>() {
+        }.getType();
+        doc = new Document("username:", "Andreanne_Bradtke67")
+                .append("passowrd", "5dn0NwO5JxIQSB7");
+        System.out.println(collection.find(doc).first());
+        
+//        List<Document> tests = (List<Document>) collection.find().into(
+//                new ArrayList<Document>());
+//        list = gson.fromJson(gson.toJson(tests), type);
+//        System.out.println(list);
+//        for (Course course : list) {
+//            System.out.println("Name: " + course.getName());
+//            System.out.println("Author: " + course.getAuthor());
+//            System.out.println("Content: " + course.getContent());
+//            System.out.println("Price: " + course.getPrice());
+//            System.out.println("Type: " + course.getType());
+//        }
     }
 }
