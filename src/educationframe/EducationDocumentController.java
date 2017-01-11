@@ -48,16 +48,16 @@ public class EducationDocumentController implements Initializable {
     User user = new User();
     List<Course> listCourse = new ArrayList<Course>();
     FxDialog dialog = new FxDialog();
-    private final static MongoClient client = new MongoClient("localhost", 27017);
-    private final static MongoDatabase database = client.getDatabase("education");
-    private static MongoCollection<Document> collection;
-    private static Document doc;
+    MongoClient client = new MongoClient("localhost", 27017);
+    MongoDatabase database = client.getDatabase("education");
+    MongoCollection<Document> collection;
+    Document doc;
     private Gson gson = new Gson();
     private Type type;
 
     //FUNCTIONS-----------------------------------------------------------------
     public List getListCourse() {
-        collection = database.getCollection("Course");
+        collection = database.getCollection("course");
         List<Document> listDoc = (List<Document>) collection.find().into(new ArrayList<Document>());
         if (listCourse != null) {
             type = new TypeToken<Course>() {
@@ -68,17 +68,15 @@ public class EducationDocumentController implements Initializable {
     }
 
     public User getUser(String username) {
-        collection = database.getCollection("User");
-        doc = new Document("username:", username);
+        collection = database.getCollection("user");
+        doc = new Document("username", username);
         Document userDoc = collection.find(doc).first();
-        if (userDoc != null) {
+        System.out.println(userDoc.toJson());
+        if (null != userDoc) {
             type = new TypeToken<User>() {
             }.getType();
             user = gson.fromJson(userDoc.toJson(), type);
             System.out.println(user.getUsername() + " " + user.getPassword());
-        }
-        else{
-            FxDialog.showError("Lỗi", "Đăng nhập thất bại");
         }
         return user;
     }
@@ -105,7 +103,12 @@ public class EducationDocumentController implements Initializable {
     void doLogin(ActionEvent event) {
         String password = tfPassword.getText();
         String username = tfUsername.getText();
-        checkLogin(username, password);
+        if (!username.isEmpty() && !password.isEmpty()) {
+            checkLogin(username, password);
+        }
+        else{
+            FxDialog.showError("Lỗi bỏ trống", "Bạn chưa nhập thông tin");
+        }
     }
 
     @FXML

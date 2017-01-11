@@ -40,9 +40,13 @@ public class MainTest {
         Gson gson = new Gson();
         Type type = new TypeToken<List<Course>>() {
         }.getType();
-        doc = new Document("username", "Melyssa_Schmitt");
+        doc = new Document("username", "admin");
         Document myDoc = collection.find(doc).first();
         if (null != myDoc) {
+            Type type1 = new TypeToken<User>() {
+            }.getType();
+            User u = gson.fromJson(myDoc.toJson(), type1);
+            System.out.println(u.getUsername() + " " + u.getPassword() + " " + u.getRole() );
             System.out.println(myDoc.toJson());
         } else {
             System.out.println("NULL");
