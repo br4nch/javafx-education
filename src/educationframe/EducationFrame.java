@@ -7,11 +7,13 @@ package educationframe;
 
 import com.jfoenix.controls.JFXTextField;
 import dialog.FxDialog;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -24,8 +26,12 @@ public class EducationFrame extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-
+        FadeTransition ft = new FadeTransition(Duration.millis(1500),root);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        ft.play();
         Scene scene = new Scene(root);
+        stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
     }
