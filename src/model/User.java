@@ -5,6 +5,8 @@
  */
 package model;
 
+import javafx.scene.control.DatePicker;
+
 /**
  *
  * @author Le Tam
@@ -14,16 +16,20 @@ public class User {
     private Object _id;
     private String username;
     private String password;
-    private String role;
+    private String email;
+    private DatePicker dob;
+    private String name;
 
     public User() {
     }
 
-    public User(Object _id, String username, String password, String role) {
+    public User(Object _id, String username, String password, String email, DatePicker dob, String name) {
         this._id = _id;
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.email = email;
+        this.dob = dob;
+        this.name = name;
     }
 
     /**
@@ -69,17 +75,45 @@ public class User {
     }
 
     /**
-     * @return the role
+     * @return the email
      */
-    public String getRole() {
-        return role;
+    public String getEmail() {
+        return email;
     }
 
     /**
-     * @param role the role to set
+     * @param email the email to set
      */
-    public void setRole(String role) {
-        this.role = role;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the f
+     */
+    public DatePicker getDOB() {
+        return dob;
+    }
+
+    /**
+     * @param dob the phone to set
+     */
+    public void setDOB(DatePicker dob) {
+        this.dob = dob;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
 }
