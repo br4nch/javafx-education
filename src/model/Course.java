@@ -5,13 +5,16 @@
  */
 package model;
 
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author Le Tam
  */
 public class Course {
 
-    private Object _id;
+    
+    private ObjectId _id;
     private String name;
     private String type;
     private Double duration;
@@ -22,7 +25,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(Object _id, String name, String type, Double duration,
+    public Course(ObjectId _id, String name, String type, Double duration,
             String content, String author, String price) {
         this._id = _id;
         this.name = name;
@@ -36,14 +39,14 @@ public class Course {
     /**
      * @return the _id
      */
-    public Object getId() {
+    public ObjectId getId() {
         return _id;
     }
 
     /**
      * @param _id the _id to set
      */
-    public void setId(Object _id) {
+    public void setId(ObjectId _id) {
         this._id = _id;
     }
 
