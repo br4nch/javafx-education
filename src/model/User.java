@@ -17,13 +17,13 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private DatePicker dob;
+    private String dob;
     private String name;
 
     public User() {
     }
 
-    public User(Object _id, String username, String password, String email, DatePicker dob, String name) {
+    public User(Object _id, String username, String password, String email, String dob, String name) {
         this._id = _id;
         this.username = username;
         this.password = password;
@@ -91,14 +91,14 @@ public class User {
     /**
      * @return the f
      */
-    public DatePicker getDOB() {
+    public String getDOB() {
         return dob;
     }
 
     /**
      * @param dob the phone to set
      */
-    public void setDOB(DatePicker dob) {
+    public void setDOB(String dob) {
         this.dob = dob;
     }
 
