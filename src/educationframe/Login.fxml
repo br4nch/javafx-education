@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,21 +23,33 @@
                <font>
                   <Font size="15.0" />
                </font>
+               <effect>
+                  <Blend />
+               </effect>
             </JFXTextField>
             <JFXButton layoutX="72.0" layoutY="305.0" onAction="#doLogin" style="-fx-background-color: #3fa2a8;" text="Login">
                <font>
                   <Font size="15.0" />
                </font>
+               <effect>
+                  <Blend />
+               </effect>
             </JFXButton>
             <JFXButton layoutX="188.0" layoutY="305.0" onAction="#goToRegister" style="-fx-background-color: #3fa2a8;" text="Register">
                <font>
                   <Font size="15.0" />
                </font>
+               <effect>
+                  <Blend />
+               </effect>
             </JFXButton>
             <JFXPasswordField fx:id="tfPassword" focusColor="#3fa2a8" labelFloat="true" layoutX="38.0" layoutY="216.0" maxWidth="273.0" minWidth="273.0" prefHeight="31.0" prefWidth="273.0" promptText="Password">
                <font>
                   <Font size="15.0" />
                </font>
+               <effect>
+                  <Blend />
+               </effect>
             </JFXPasswordField>
          </children>
       </Pane>

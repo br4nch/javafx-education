@@ -6,7 +6,7 @@
         Purpose of the stylesheet follows.
 */
 
-#btn1 {			
+#btnFindCourse,#btnFindCourseAdmin {			
 	
 	-fx-background-image: url("../img/xmag.png");
 	-fx-background-size: 18 18;
@@ -14,7 +14,7 @@
 	-fx-background-position:left;
         
 }
-#btn2 {			
+#btnAddToCart {			
 	
 	-fx-background-image: url("../img/Debit_Cart_1.png");
 	-fx-background-size: 18 18;
@@ -22,7 +22,7 @@
 	-fx-background-position:left;
         
 }
-#btn3 {			
+#btnDeleteCourse {			
 	
 	-fx-background-image: url("../img/delete.png");
 	-fx-background-size: 18 18;
@@ -30,7 +30,7 @@
 	-fx-background-position:left;
         
 }
-#btn4 {			
+#btnInsertCourse {			
 	
 	-fx-background-image: url("../img/add.png");
 	-fx-background-size: 18 18;
@@ -38,7 +38,7 @@
 	-fx-background-position:left;
         
 }
-#btn5 {			
+#btnEditCourse {			
 	
 	-fx-background-image: url("../img/repair.png");
 	-fx-background-size: 18 18;
@@ -46,7 +46,7 @@
 	-fx-background-position:left;
         
 }
-#btn6 {			
+#btnAccept {			
 	
 	-fx-background-image: url("../img/yes.png");
 	-fx-background-size: 18 18;
@@ -54,7 +54,7 @@
 	-fx-background-position:left;
         
 }
-#btn7 {			
+#btnCancel {			
 	
 	-fx-background-image: url("../img/no.png");
 	-fx-background-size: 18 18;

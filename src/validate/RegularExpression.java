@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package valiadte;
+package validate;
 
 import dialog.FxDialog;
 import java.util.regex.Matcher;
@@ -15,11 +15,12 @@ import java.util.regex.Pattern;
  */
 public class RegularExpression {
 
-    public void doValidate(String text) {
+    public static boolean doValidate(String text) {
         Pattern pattern = Pattern.compile("[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}");
         Matcher matcher = pattern.matcher(text.toUpperCase());
         if (!matcher.matches()) {
-            FxDialog.showError("Lỗi", "Email bạn nhập chưa hợp lệ");
+            return false;
         }
+        return true;
     }
 }
