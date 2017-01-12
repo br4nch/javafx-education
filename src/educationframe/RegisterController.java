@@ -16,6 +16,7 @@ import dialog.FxDialog;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -33,6 +34,7 @@ import javafx.util.Duration;
 import model.Course;
 import model.User;
 import org.bson.Document;
+import validate.RegularExpression;
 
 /**
  * FXML Controller class
@@ -71,6 +73,7 @@ public class RegisterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        tfDOB.setValue(LocalDate.now());
     }
 
     //FUNCTIONS-----------------------------------------------------------------
@@ -95,7 +98,7 @@ public class RegisterController implements Initializable {
         appStage.setScene(loginScene);
         appStage.show();
     }
-    
+
     @FXML
     private void doRegister(ActionEvent event) throws IOException {
         String username = tfUsername.getText().toLowerCase();
@@ -103,21 +106,24 @@ public class RegisterController implements Initializable {
         String email = tfEmail.getText().toLowerCase();
         String dob = tfDOB.getValue().toString().toLowerCase();
         String confirm = tfConfirm.getText().toLowerCase();
-        if (username.isEmpty() || password.isEmpty() || email.isEmpty() || dob.isEmpty() || confirm.isEmpty()) {
+        if (username.isEmpty() || password.isEmpty() || email.isEmpty() || confirm.isEmpty()) {
             FxDialog.showError("Thông tin bạn nhập còn thiếu", "Mời bạn điền đầy đủ thông tin");
         } else if (!password.matches(confirm) || !confirm.matches(password)) {
             FxDialog.showError("Lỗi mật khẩu", "Xác thực mật khảu không trùng nhau");
         } else {
-            InsertUser(username, password, email, dob);
-            FxDialog.showInformation("Thông báo", "Chúc mừng bạn đã đăng ký thành công");
-            toLogin(event);
+            if (!RegularExpression.doValidate(email)) {
+                FxDialog.showError("Lỗi", "Email bạn nhập chưa hợp lệ");
+            } else {
+                InsertUser(username, password, email, dob);
+                FxDialog.showInformation("Thông báo", "Chúc mừng bạn đã đăng ký thành công");
+                toLogin(event);
+            }
         }
     }
-    
+
     @FXML
     private void goToLogin(ActionEvent event) throws IOException {
         toLogin(event);
-        
+
     }
-    
 }
