@@ -18,18 +18,16 @@ public class User {
     private String password;
     private String email;
     private String dob;
-    private String name;
 
     public User() {
     }
 
-    public User(Object _id, String username, String password, String email, String dob, String name) {
+    public User(Object _id, String username, String password, String email, String dob) {
         this._id = _id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.dob = dob;
-        this.name = name;
     }
 
     /**
@@ -100,20 +98,6 @@ public class User {
      */
     public void setDOB(String dob) {
         this.dob = dob;
-    }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
 }
