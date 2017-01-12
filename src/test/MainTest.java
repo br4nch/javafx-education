@@ -46,7 +46,7 @@ public class MainTest {
             Type type1 = new TypeToken<User>() {
             }.getType();
             User u = gson.fromJson(myDoc.toJson(), type1);
-            System.out.println(u.getUsername() + " " + u.getPassword() + " " + u.getRole() );
+            System.out.println(u.getUsername() + " " + u.getPassword());
             System.out.println(myDoc.toJson());
         } else {
             System.out.println("NULL");
