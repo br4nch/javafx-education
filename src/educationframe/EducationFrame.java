@@ -14,7 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+import javafx.scene.image.Image;
 /**
  *
  * @author Le Tam
@@ -23,6 +23,7 @@ public class EducationFrame extends Application {
 
     private JFXTextField tfUsername;
 
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
@@ -32,6 +33,7 @@ public class EducationFrame extends Application {
         ft.play();
         Scene scene = new Scene(root);
         stage.setTitle("Login");
+        stage.getIcons().add(new Image("http://mikecann.co.uk/wp-content/uploads/2009/12/javafx_logo_color_1.jpg"));
         stage.setScene(scene);
         stage.show();
     }
