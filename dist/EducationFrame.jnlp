@@ -8,11 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-<<<<<<< 4b60189ba1acf59a0701196c65083be2c692776d
-    <jar href="EducationFrame.jar" size="39634" download="eager" />
-=======
-    <jar href="EducationFrame.jar" size="245170" download="eager" />
->>>>>>> 183856dca2ce9f1bfa5e06b8c7af2a0a88e8fef4
+    <jar href="EducationFrame.jar" size="251916" download="eager" />
     <jar href="lib\bson-3.2.2.jar" size="228188" download="eager" />
     <jar href="lib\gson-2.2.2.jar" size="189285" download="eager" />
     <jar href="lib\jfoenix.jar" size="2206016" download="eager" />
