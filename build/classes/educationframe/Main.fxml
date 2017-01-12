@@ -30,20 +30,9 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="349.0" prefWidth="598.0">
                      <children>
-                        <GridPane layoutX="222.0" layoutY="46.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
                         <SplitPane dividerPositions="0.44188376753507014" prefHeight="700.0" prefWidth="1000.0">
                            <items>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="611.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="437.0">
                                  <children>
                                     <TextField layoutX="14.0" layoutY="26.0" prefHeight="40.0" prefWidth="300.0" promptText="Nhập từ khóa">
                                        <font>
@@ -51,7 +40,7 @@
                                        </font>
                                     </TextField>
                                     <Button fx:id="btn1" layoutX="359.0" layoutY="26.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="45.0" style="-fx-background-repeat: no-repeat; -fx-background-position: center; -fx-background-size: 100%;" />
-                                    <TableView layoutY="95.0" prefHeight="352.0" prefWidth="438.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="251.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
+                                    <TableView layoutY="95.0" prefHeight="376.0" prefWidth="438.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
                                        <columns>
                                           <TableColumn prefWidth="75.0" text="Tên khóa học" />
                                           <TableColumn prefWidth="75.0" text="Khóa học" />
@@ -163,17 +152,6 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="349.0" prefWidth="598.0">
                      <children>
-                        <GridPane layoutX="222.0" layoutY="46.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
                         <SplitPane dividerPositions="0.44188376753507014" prefHeight="700.0" prefWidth="1000.0">
                            <items>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="611.0">
@@ -184,7 +162,7 @@
                                        </font>
                                     </TextField>
                                     <Button fx:id="btn1" layoutX="359.0" layoutY="26.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="45.0" style="-fx-background-repeat: no-repeat; -fx-background-position: center; -fx-background-size: 100%;" />
-                                    <TableView layoutY="95.0" prefHeight="352.0" prefWidth="438.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="251.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
+                                    <TableView layoutY="95.0" prefHeight="376.0" prefWidth="438.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
                                        <columns>
                                           <TableColumn prefWidth="75.0" text="Tên khóa học" />
                                           <TableColumn prefWidth="75.0" text="Khóa học" />
@@ -387,7 +365,7 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="570.0">
                                  <children>
-                                    <TableView layoutX="43.0" layoutY="85.0" prefHeight="300.0" prefWidth="500.0">
+                                    <TableView layoutX="1.0" layoutY="85.0" prefHeight="384.0" prefWidth="581.0">
                                       <columns>
                                         <TableColumn prefWidth="75.0" text="Tên khóa học" />
                                         <TableColumn prefWidth="75.0" text="Khóa học" />
@@ -397,7 +375,7 @@
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
-                                    <Label layoutX="182.0" layoutY="19.0" text="Danh Sách Khóa Học" textFill="#3a9bd0">
+                                    <Label layoutX="157.0" layoutY="24.0" text="Danh Sách Khóa Học" textFill="#3a9bd0">
                                        <font>
                                           <Font name="System Bold" size="30.0" />
                                        </font>
