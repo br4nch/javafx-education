@@ -33,17 +33,21 @@ public class MainTest {
         Course c = new Course();
         MongoClient client = new MongoClient("localhost", 27017);
         MongoDatabase database = client.getDatabase("education");
-        MongoCollection<Document> collection = database.getCollection("course");
+        MongoCollection<Document> collection = database.getCollection("user");
         Document doc = new Document();
         MongoCursor<Document> cursor = collection.find().iterator();
         List<Course> list = new ArrayList<Course>();
         Gson gson = new Gson();
         Type type = new TypeToken<List<Course>>() {
         }.getType();
-        doc = new Document("username:", "Andreanne_Bradtke67")
-                .append("passowrd", "5dn0NwO5JxIQSB7");
-        System.out.println(collection.find(doc).first());
-        
+        doc = new Document("username", "Melyssa_Schmitt");
+        Document myDoc = collection.find(doc).first();
+        if (null != myDoc) {
+            System.out.println(myDoc.toJson());
+        } else {
+            System.out.println("NULL");
+        }
+
 //        List<Document> tests = (List<Document>) collection.find().into(
 //                new ArrayList<Document>());
 //        list = gson.fromJson(gson.toJson(tests), type);
