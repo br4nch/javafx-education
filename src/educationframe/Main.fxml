@@ -79,7 +79,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Label style="-fx-font-style: text-allign:right;;" text="Tên khóa học" textFill="#30afe1">
+                                          <Label style="-fx-font-style: text-allign:right;" text="Tên khóa học" textFill="#30afe1">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
