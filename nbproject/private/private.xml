@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/javafx-education/src/educationframe/Main.fxml</file>
             <file>file:/D:/javafx-education/src/educationframe/EducationDocumentController.java</file>
-            <file>file:/D:/javafx-education/src/educationframe/css/main.css</file>
+            <file>file:/D:/javafx-education/src/educationframe/EducationFrame.java</file>
+            <file>file:/D:/javafx-education/src/model/Course.java</file>
+            <file>file:/D:/javafx-education/src/educationframe/LoginController.java</file>
         </group>
     </open-files>
 </project-private>

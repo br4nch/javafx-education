@@ -6,6 +6,7 @@
 package test;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
@@ -16,6 +17,10 @@ import com.mongodb.util.JSON;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import model.Course;
 import model.User;
 import mongo.connect.MongoConnector;
@@ -40,6 +45,7 @@ public class MainTest {
         Gson gson = new Gson();
         Type type = new TypeToken<List<Course>>() {
         }.getType();
+
 //        doc = new Document("username", "admin");
 //        Document myDoc = collection.find(doc).first();
 //        if (null != myDoc) {
@@ -51,7 +57,6 @@ public class MainTest {
 //        } else {
 //            System.out.println("NULL");
 //        }
-
         List<Document> tests = (List<Document>) collection.find().into(
                 new ArrayList<Document>());
         list = gson.fromJson(gson.toJson(tests), type);

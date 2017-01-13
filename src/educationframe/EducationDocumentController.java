@@ -24,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -41,6 +42,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 
@@ -50,6 +52,7 @@ import javafx.scene.shape.Circle;
  */
 public class EducationDocumentController implements Initializable {
 
+    String usernameProfile;
     //FXML----------------------------------------------------------------------
     @FXML
     private TextField tfFindCourse;
@@ -61,13 +64,13 @@ public class EducationDocumentController implements Initializable {
     private TableView<Course> tvCourse;
 
     @FXML
-    private TableColumn<?, ?> colCourseName;
+    private TableColumn<Course, String> colCourseName;
 
     @FXML
-    private TableColumn<?, ?> colCourseType;
+    private TableColumn<Course, String> colCourseType;
 
     @FXML
-    private TableColumn<?, ?> colCoursePrice;
+    private TableColumn<Course, String> colCoursePrice;
 
     @FXML
     private Label lblCourseName;
@@ -97,16 +100,16 @@ public class EducationDocumentController implements Initializable {
     private Button btnFindCourseAdmin;
 
     @FXML
-    private TableView<?> tvCourseAdmin;
+    private TableView<Course> tvCourseAdmin;
 
     @FXML
-    private TableColumn<?, ?> colCourseNameAdmin;
+    private TableColumn<Course, String> colCourseNameAdmin;
 
     @FXML
-    private TableColumn<?, ?> colCourseTypeAdmin;
+    private TableColumn<Course, String> colCourseTypeAdmin;
 
     @FXML
-    private TableColumn<?, ?> colCoursePriceAdmin;
+    private TableColumn<Course, String> colCoursePriceAdmin;
 
     @FXML
     private TextField tfCourseNameAdmin;
@@ -166,16 +169,16 @@ public class EducationDocumentController implements Initializable {
     private Label lblCourseTypeCart;
 
     @FXML
-    private TableView<?> tvCourseCart;
+    private TableView<Course> tvCourseCart;
 
     @FXML
-    private TableColumn<?, ?> colCourseNameCart;
+    private TableColumn<Course, String> colCourseNameCart;
 
     @FXML
-    private TableColumn<?, ?> colCourseTypeCart;
+    private TableColumn<Course, String> colCourseTypeCart;
 
     @FXML
-    private TableColumn<?, ?> colCoursePriceCart;
+    private TableColumn<Course, String> colCoursePriceCart;
 
     @FXML
     private MenuItem miPopOver;
@@ -184,7 +187,7 @@ public class EducationDocumentController implements Initializable {
     private Circle circleImageUser;
 
     @FXML
-    private Label lblUserNamePopOver;
+    private Label lblFullName;
 
     @FXML
     private Label lblDOB;
@@ -219,6 +222,11 @@ public class EducationDocumentController implements Initializable {
 
     private Type type;
 
+    //GETTER-SETTER-------------------------------------------------------------
+    public void setUsernameProfile(String user) {
+        this.usernameProfile = user;
+    }
+
     //FUNCTIONS-----------------------------------------------------------------
     public List getListCourse() {
         collection = database.getCollection("course");
@@ -248,12 +256,41 @@ public class EducationDocumentController implements Initializable {
     public void ShowData() {
         listCourse = getListCourse();
         ObservableList<Course> obsList = FXCollections.observableArrayList(listCourse);
-        tvCourse = new TableView<Course>();
+        colCourseName.setCellValueFactory(new PropertyValueFactory<Course, String>("name"));
+        colCourseType.setCellValueFactory(new PropertyValueFactory<Course, String>("type"));
+        colCoursePrice.setCellValueFactory(new PropertyValueFactory<Course, String>("price"));
         tvCourse.setItems(obsList);
+        tvCourse.getColumns().clear();
+        tvCourse.getColumns().addAll(colCourseName, colCourseType, colCoursePrice);
+    }
+
+    public void ShowDataAdmin() {
+        listCourse = getListCourse();
+        ObservableList<Course> obsList = FXCollections.observableArrayList(listCourse);
+        colCourseNameAdmin.setCellValueFactory(new PropertyValueFactory<Course, String>("name"));
+        colCourseTypeAdmin.setCellValueFactory(new PropertyValueFactory<Course, String>("type"));
+        colCoursePriceAdmin.setCellValueFactory(new PropertyValueFactory<Course, String>("price"));
+        tvCourseAdmin.setItems(obsList);
+        tvCourseAdmin.getColumns().clear();
+        tvCourseAdmin.getColumns().addAll(colCourseNameAdmin, colCourseTypeAdmin, colCoursePriceAdmin);
+
     }
 
     public void InsertDocument() {
 
+    }
+
+    public void setTFCourseAdmin(boolean b) {
+        tfCourseNameAdmin.setEditable(b);
+        tfCourseContentAdmin.setEditable(b);
+        tfCourseDurationAdmin.setEditable(b);
+        tfCoursePriceAdmin.setEditable(b);
+        tfCourseAuthorAdmin.setEditable(b);
+        tfCourseTypeAdmin.setEditable(b);
+    }
+
+    @FXML
+    void AddToCart(ActionEvent event) {
     }
 
     @FXML
@@ -262,17 +299,7 @@ public class EducationDocumentController implements Initializable {
     }
 
     @FXML
-    void doAddItem(ActionEvent event) {
-        getListCourse();
-    }
-
-    @FXML
     void doCancel(ActionEvent event) {
-
-    }
-
-    @FXML
-    void doDeleteCourse(ActionEvent event) {
 
     }
 
@@ -297,15 +324,36 @@ public class EducationDocumentController implements Initializable {
     }
 
     @FXML
-    void doLogout(ActionEvent event) {
+    void doNotSave(ActionEvent event) {
 
+    }
+
+    @FXML
+    void doSave(ActionEvent event) {
+
+    }
+
+    @FXML
+    void doLogout(ActionEvent event) throws IOException {
+        Parent register = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Scene registerScene = new Scene(register);
+        FadeTransition ft = new FadeTransition(Duration.millis(1500), register);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        ft.play();
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setTitle("Login");
+        appStage.setScene(registerScene);
+        appStage.show();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         ShowData();
-        
+        ShowDataAdmin();
+        setTFCourseAdmin(false);
+        lblUsername.setText("Hello " + this.usernameProfile);
     }
 
 }
