@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,7 +58,7 @@ public class EducationDocumentController implements Initializable {
     private Button btnFindCourse;
 
     @FXML
-    private TableView<?> tvCourse;
+    private TableView<Course> tvCourse;
 
     @FXML
     private TableColumn<?, ?> colCourseName;
@@ -200,28 +202,31 @@ public class EducationDocumentController implements Initializable {
     private Label lblUsername;
     //VARIABLES-----------------------------------------------------------------
     Course course = new Course();
+
     User user = new User();
+
     List<Course> listCourse = new ArrayList<Course>();
-    FxDialog dialog = new FxDialog();
+
     MongoClient client = new MongoClient("localhost", 27017);
+
     MongoDatabase database = client.getDatabase("education");
+
     MongoCollection<Document> collection;
+
     Document doc;
+
     private Gson gson = new Gson();
+
     private Type type;
 
     //FUNCTIONS-----------------------------------------------------------------
     public List getListCourse() {
         collection = database.getCollection("course");
         List<Document> listDoc = (List<Document>) collection.find().into(new ArrayList<Document>());
-        if (listCourse != null) {
-            type = new TypeToken<Course>() {
+        if (null != listCourse) {
+            type = new TypeToken<List<Course>>() {
             }.getType();
             listCourse = gson.fromJson(gson.toJson(listDoc), type);
-            for (Course course1 : listCourse) {
-                System.out.println(course1.getName() + " " + course1.getType());
-
-            }
         }
         return listCourse;
     }
@@ -238,6 +243,13 @@ public class EducationDocumentController implements Initializable {
             System.out.println(user.getUsername() + " " + user.getPassword());
         }
         return user;
+    }
+
+    public void ShowData() {
+        listCourse = getListCourse();
+        ObservableList<Course> obsList = FXCollections.observableArrayList(listCourse);
+        tvCourse = new TableView<Course>();
+        tvCourse.setItems(obsList);
     }
 
     public void InsertDocument() {
@@ -292,6 +304,8 @@ public class EducationDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        ShowData();
+        
     }
 
 }

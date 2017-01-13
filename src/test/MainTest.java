@@ -33,35 +33,35 @@ public class MainTest {
         Course c = new Course();
         MongoClient client = new MongoClient("localhost", 27017);
         MongoDatabase database = client.getDatabase("education");
-        MongoCollection<Document> collection = database.getCollection("user");
+        MongoCollection<Document> collection = database.getCollection("course");
         Document doc = new Document();
         MongoCursor<Document> cursor = collection.find().iterator();
         List<Course> list = new ArrayList<Course>();
         Gson gson = new Gson();
         Type type = new TypeToken<List<Course>>() {
         }.getType();
-        doc = new Document("username", "admin");
-        Document myDoc = collection.find(doc).first();
-        if (null != myDoc) {
-            Type type1 = new TypeToken<User>() {
-            }.getType();
-            User u = gson.fromJson(myDoc.toJson(), type1);
-            System.out.println(u.getUsername() + " " + u.getPassword());
-            System.out.println(myDoc.toJson());
-        } else {
-            System.out.println("NULL");
-        }
-
-//        List<Document> tests = (List<Document>) collection.find().into(
-//                new ArrayList<Document>());
-//        list = gson.fromJson(gson.toJson(tests), type);
-//        System.out.println(list);
-//        for (Course course : list) {
-//            System.out.println("Name: " + course.getName());
-//            System.out.println("Author: " + course.getAuthor());
-//            System.out.println("Content: " + course.getContent());
-//            System.out.println("Price: " + course.getPrice());
-//            System.out.println("Type: " + course.getType());
+//        doc = new Document("username", "admin");
+//        Document myDoc = collection.find(doc).first();
+//        if (null != myDoc) {
+//            Type type1 = new TypeToken<User>() {
+//            }.getType();
+//            User u = gson.fromJson(myDoc.toJson(), type1);
+//            System.out.println(u.getUsername() + " " + u.getPassword());
+//            System.out.println(myDoc.toJson());
+//        } else {
+//            System.out.println("NULL");
 //        }
+
+        List<Document> tests = (List<Document>) collection.find().into(
+                new ArrayList<Document>());
+        list = gson.fromJson(gson.toJson(tests), type);
+        System.out.println(list);
+        for (Course course : list) {
+            System.out.println("Name: " + course.getName());
+            System.out.println("Author: " + course.getAuthor());
+            System.out.println("Content: " + course.getContent());
+            System.out.println("Price: " + course.getPrice());
+            System.out.println("Type: " + course.getType());
+        }
     }
 }
