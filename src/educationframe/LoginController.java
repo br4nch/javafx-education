@@ -66,13 +66,15 @@ public class LoginController implements Initializable {
     public User getUser(String username) {
         collection = database.getCollection("user");
         doc = new Document("username", username);
-        Document userDoc = collection.find(doc).first();
-        System.out.println(userDoc.toJson());
+        Document userDoc = new Document();
         if (null != userDoc) {
+            userDoc = collection.find(doc).first();
             type = new TypeToken<User>() {
             }.getType();
             user = gson.fromJson(userDoc.toJson(), type);
             System.out.println(user.getUsername() + " " + user.getPassword());
+        } else {
+            FxDialog.showError("Lỗi", "Tài khoản này không tồn tại, bạn có muốn đăng ký mới?");
         }
         return user;
     }
@@ -80,9 +82,7 @@ public class LoginController implements Initializable {
     public void checkLogin(String username, String password) {
         user = getUser(username);
         System.out.println(user.getPassword() + " " + user.getUsername());
-        if (!username.equals(user.getUsername())) {
-            FxDialog.showError("Lỗi", "Username không tồn tại, mời bạn đăng ký");
-        } else if (!username.equals(user.getUsername()) && !password.equals(user.getPassword())) {
+        if (!username.equals(user.getUsername()) && !password.equals(user.getPassword())) {
             FxDialog.showError("Đăng nhập thất bại", "Kiểm tra lại username hoặc password");
         } else {
             FxDialog.showInformation("Đăng nhập thành công", "Chào mừng đến với phần mềm quản lý dạy học");

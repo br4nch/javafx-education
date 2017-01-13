@@ -38,12 +38,16 @@ import model.User;
 import org.bson.Document;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 
 /**
@@ -52,7 +56,10 @@ import javafx.scene.shape.Circle;
  */
 public class EducationDocumentController implements Initializable {
 
-    String usernameProfile;
+    private String usernameProfile;
+
+    private boolean check;
+
     //FXML----------------------------------------------------------------------
     @FXML
     private TextField tfFindCourse;
@@ -139,10 +146,10 @@ public class EducationDocumentController implements Initializable {
     private Button btnEditCourse;
 
     @FXML
-    private Button btn8;
+    private Button btnSave;
 
     @FXML
-    private Button btn9;
+    private Button btnNotSave;
 
     @FXML
     private Button btnAccept;
@@ -203,6 +210,9 @@ public class EducationDocumentController implements Initializable {
 
     @FXML
     private Label lblUsername;
+
+    @FXML
+    private MenuButton menuBtn;
     //VARIABLES-----------------------------------------------------------------
     Course course = new Course();
 
@@ -280,13 +290,37 @@ public class EducationDocumentController implements Initializable {
 
     }
 
-    public void setTFCourseAdmin(boolean b) {
+    public void DeleteDocument() {
+
+    }
+
+    public void EditDocument() {
+    }
+
+    public void setTextField(boolean b) {
         tfCourseNameAdmin.setEditable(b);
         tfCourseContentAdmin.setEditable(b);
         tfCourseDurationAdmin.setEditable(b);
         tfCoursePriceAdmin.setEditable(b);
         tfCourseAuthorAdmin.setEditable(b);
         tfCourseTypeAdmin.setEditable(b);
+    }
+
+    public void setNull() {
+        this.tfCourseAuthorAdmin.setText(null);
+        this.tfCourseContentAdmin.setText(null);
+        this.tfCourseDurationAdmin.setText(null);
+        this.tfCourseNameAdmin.setText(null);
+        this.tfCoursePriceAdmin.setText(null);
+        this.tfCourseTypeAdmin.setText(null);
+    }
+
+    public void setButton(boolean b) {
+        this.btnInsertCourse.setDisable(b);
+        this.btnEditCourse.setDisable(b);
+        this.btnDeleteCourse.setDisable(b);
+        this.btnSave.setDisable(!b);
+        this.btnNotSave.setDisable(!b);
     }
 
     @FXML
@@ -304,8 +338,15 @@ public class EducationDocumentController implements Initializable {
     }
 
     @FXML
-    void doEditCourse(ActionEvent event) {
+    void doDeleteCourse(ActionEvent event) {
+    }
 
+    @FXML
+    void doEditCourse(ActionEvent event) {
+        setTextField(true);
+        tfCourseNameAdmin.requestFocus();
+        setButton(true);
+        check = false;
     }
 
     @FXML
@@ -320,12 +361,18 @@ public class EducationDocumentController implements Initializable {
 
     @FXML
     void doInsertCourse(ActionEvent event) {
-
+        setNull();
+        setTextField(true);
+        tfCourseNameAdmin.requestFocus();
+        setButton(true);
+        check = true;
     }
 
     @FXML
     void doNotSave(ActionEvent event) {
-
+        setNull();
+        setTextField(false);
+        setButton(false);
     }
 
     @FXML
@@ -335,16 +382,42 @@ public class EducationDocumentController implements Initializable {
 
     @FXML
     void doLogout(ActionEvent event) throws IOException {
-        Parent register = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        Scene registerScene = new Scene(register);
-        FadeTransition ft = new FadeTransition(Duration.millis(1500), register);
-        ft.setFromValue(0.0);
-        ft.setToValue(1.0);
-        ft.play();
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setTitle("Login");
-        appStage.setScene(registerScene);
-        appStage.show();
+        if (FxDialog.showConfirm("Thong bao", "Ban co muon thoat?") == "OK") {
+            Parent register = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Scene registerScene = new Scene(register);
+            FadeTransition ft = new FadeTransition(Duration.millis(1500), register);
+            ft.setFromValue(0.0);
+            ft.setToValue(1.0);
+            ft.play();
+            Stage appStage = (Stage) menuBtn.getScene().getWindow();
+//        .getSource()).getScene().getWindow();
+            appStage.setTitle("Login");
+            appStage.setScene(registerScene);
+            appStage.show();
+        } else {
+            return;
+        }
+    }
+
+    public void getRowValue() {
+        tvCourse.setRowFactory(tv -> {
+            TableRow<Course> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
+                        && event.getClickCount() == 1) {
+
+                    Course clickedRow = row.getItem();
+                    lblCourseName.setText(clickedRow.getName());
+                    lblCourseType.setText(clickedRow.getType());
+                    lblCourseDuration.setText(String.valueOf(clickedRow.getDuration()));
+                    lblCourseContent.setText(clickedRow.getContent());
+                    lblCourseAuthor.setText(clickedRow.getAuthor());
+                    lblCoursePrice.setText(clickedRow.getPrice());
+                }
+            });
+            return row;
+        });
+
     }
 
     @Override
@@ -352,8 +425,10 @@ public class EducationDocumentController implements Initializable {
         // TODO
         ShowData();
         ShowDataAdmin();
-        setTFCourseAdmin(false);
+        setTextField(false);
+        setButton(false);
         lblUsername.setText("Hello " + this.usernameProfile);
+        getRowValue();
     }
 
 }
