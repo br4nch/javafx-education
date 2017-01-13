@@ -78,3 +78,11 @@
 	-fx-background-position:left;
         
 }
+#btn10 {			
+	
+	-fx-background-image: url("../img/save.png");
+	-fx-background-size: 18 18;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position:left;
+        
+}
