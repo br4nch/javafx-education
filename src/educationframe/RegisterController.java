@@ -74,8 +74,7 @@ public class RegisterController implements Initializable {
     }
 
     //FUNCTIONS-----------------------------------------------------------------
-   
-    public void InsertUser(String username,String password, String email, String dob){
+    public void InsertUser(String username, String password, String email, String dob) {
         collection = database.getCollection("user");
         doc = new Document("username", username)
                 .append("passowrd", password)
@@ -83,27 +82,8 @@ public class RegisterController implements Initializable {
                 .append("dob", dob);
         collection.insertOne(doc);
     }
-   
-    @FXML
-    private void doRegister(ActionEvent event) {
-        String username = tfUsername.getText().toLowerCase();
-        String password = tfPassword.getText().toLowerCase();
-        String email = tfEmail.getText().toLowerCase();
-        String dob = tfDOB.getValue().toString().toLowerCase();
-        String confirm = tfConfirm.getText().toLowerCase();
-        if(username.isEmpty() || password.isEmpty() || email.isEmpty() || dob.isEmpty() || confirm.isEmpty()){
-            FxDialog.showError("Thông tin bạn nhập còn thiếu", "Mời bạn điền đầy đủ thông tin");
-        }
-        else if(!password.matches(confirm) || !confirm.matches(password)){
-            FxDialog.showError("Lỗi mật khẩu", "Xác thực mật khảu không trùng nhau");
-        }
-        else{
-            InsertUser(username, password, email, dob);
-        }
-    }
 
-    @FXML
-    private void goToLogin(ActionEvent event) throws IOException {
+    public void toLogin(ActionEvent event) throws IOException {
         Parent login = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Scene loginScene = new Scene(login);
         FadeTransition ft = new FadeTransition(Duration.millis(1500), login);
@@ -113,8 +93,31 @@ public class RegisterController implements Initializable {
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setTitle("Login");
         appStage.setScene(loginScene);
-        appStage.show();        
-                
+        appStage.show();
     }
-
+    
+    @FXML
+    private void doRegister(ActionEvent event) throws IOException {
+        String username = tfUsername.getText().toLowerCase();
+        String password = tfPassword.getText().toLowerCase();
+        String email = tfEmail.getText().toLowerCase();
+        String dob = tfDOB.getValue().toString().toLowerCase();
+        String confirm = tfConfirm.getText().toLowerCase();
+        if (username.isEmpty() || password.isEmpty() || email.isEmpty() || dob.isEmpty() || confirm.isEmpty()) {
+            FxDialog.showError("Thông tin bạn nhập còn thiếu", "Mời bạn điền đầy đủ thông tin");
+        } else if (!password.matches(confirm) || !confirm.matches(password)) {
+            FxDialog.showError("Lỗi mật khẩu", "Xác thực mật khảu không trùng nhau");
+        } else {
+            InsertUser(username, password, email, dob);
+            FxDialog.showInformation("Thông báo", "Chúc mừng bạn đã đăng ký thành công");
+            toLogin(event);
+        }
+    }
+    
+    @FXML
+    private void goToLogin(ActionEvent event) throws IOException {
+        toLogin(event);
+        
+    }
+    
 }

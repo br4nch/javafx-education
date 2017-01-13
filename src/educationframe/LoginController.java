@@ -77,10 +77,13 @@ public class LoginController implements Initializable {
 
     public void checkLogin(String username, String password) {
         user = getUser(username);
-        if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
-            FxDialog.showInformation("Đăng nhập thành công", "Chào mừng đến với phần mềm quản lý dạy học");
-        } else {
+        System.out.println(user.getPassword() + " " + user.getUsername());
+        if (!username.equals(user.getUsername())) {
+            FxDialog.showError("Lỗi", "Username không tồn tại, mời bạn đăng ký");
+        } else if (!username.equals(user.getUsername()) && !password.equals(user.getPassword())) {
             FxDialog.showError("Đăng nhập thất bại", "Kiểm tra lại username hoặc password");
+        } else {
+            FxDialog.showInformation("Đăng nhập thành công", "Chào mừng đến với phần mềm quản lý dạy học");
         }
     }
 
@@ -113,7 +116,7 @@ public class LoginController implements Initializable {
             checkLogin(username, password);
             goToMain(event);
         } else {
-            FxDialog.showError("Lỗi xác thực", "Bạn chưa nhập thông tin");
+            FxDialog.showError("Lỗi", "Bạn chưa nhập thông tin");
         }
     }
 
