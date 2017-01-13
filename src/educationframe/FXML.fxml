@@ -1,47 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="educationframe.NewFXMain">
    <children>
     <Button fx:id="btn" mnemonicParsing="false" text="  sdffButton" />
-      <MenuButton fx:id="mbtnUsrInfoBox" layoutX="240.0" layoutY="78.0" mnemonicParsing="false" onAction="#mbtnOnClick" prefHeight="36.0" prefWidth="120.0">
-         <items>
-            <MenuItem fx:id="miPopOver" mnemonicParsing="false">
-               <graphic>
-                  <AnchorPane prefHeight="225.0" prefWidth="190.0">
-                     <children>
-                        <Circle fx:id="circleImgUsr" fill="DODGERBLUE" layoutX="100.0" layoutY="49.0" radius="46.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label fx:id="lblUsrNamePopOver" alignment="CENTER" layoutY="107.0" prefHeight="15.0" prefWidth="196.0" text="UserName" />
-                        <Label fx:id="lblFullName" alignment="CENTER" layoutX="2.0" layoutY="129.0" prefHeight="15.0" prefWidth="196.0" text="Full Name" />
-                        <Label fx:id="lblRoleAs" alignment="CENTER" layoutX="3.0" layoutY="148.0" prefHeight="15.0" prefWidth="196.0" text="Role" />
-                        <Hyperlink fx:id="hlEditUpdateAccount" alignment="CENTER" layoutX="3.0" layoutY="163.0" onAction="#hlUpdateAccount" prefHeight="23.0" prefWidth="194.0" text="Edit/Update" />
-                        <Button fx:id="btnLogOut" layoutX="3.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnLogOut" prefHeight="40.0" prefWidth="196.0" text="logOut" />
-                     </children>
-                  </AnchorPane>
-               </graphic>
-            </MenuItem>
-         </items>
-         <graphic>
-            <AnchorPane prefHeight="20.0" prefWidth="120.0">
-               <children>
-                  <Circle fx:id="imgUsrTop" fill="DODGERBLUE" layoutX="26.0" layoutY="24.0" radius="16.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label fx:id="lblUsrName" layoutX="52.0" layoutY="17.0" text="Rifat" />
-               </children>
-            </AnchorPane>
-         </graphic>
-         <padding>
-            <Insets left="-15.0" top="-10.0" />
-         </padding>
-      </MenuButton>
       <Label fx:id="lbl" layoutX="202.0" layoutY="200.0" text="Label" />
   </children>
   <stylesheets>
