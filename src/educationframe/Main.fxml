@@ -22,7 +22,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="educationframe.EducationDocumentController">
    <children>
       <TabPane layoutX="367.0" layoutY="422.0" prefHeight="500.0" prefWidth="1000.0" tabClosingPolicy="ALL_TABS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="20.0">
          <tabs>
@@ -412,7 +412,7 @@
             </Tab>
          </tabs>
       </TabPane>
-      <MenuButton fx:id="mbtnUsrInfoBox" layoutX="149.0" layoutY="147.0" mnemonicParsing="false" onAction="#mbtnOnClick" prefHeight="30.0" prefWidth="120.0" AnchorPane.leftAnchor="850.0" AnchorPane.topAnchor="20.0">
+      <MenuButton layoutX="149.0" layoutY="147.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" AnchorPane.leftAnchor="850.0" AnchorPane.topAnchor="20.0">
          <items>
             <MenuItem fx:id="miPopOver" mnemonicParsing="false">
                <graphic>
@@ -422,8 +422,8 @@
                         <Label fx:id="lblUsrNamePopOver" alignment="CENTER" layoutY="107.0" prefHeight="15.0" prefWidth="196.0" text="UserName" />
                         <Label fx:id="lblFullName" alignment="CENTER" layoutX="2.0" layoutY="129.0" prefHeight="15.0" prefWidth="196.0" text="Full Name" />
                         <Label fx:id="lblRoleAs" alignment="CENTER" layoutX="3.0" layoutY="148.0" prefHeight="15.0" prefWidth="196.0" text="Role" />
-                        <Hyperlink fx:id="hlEditUpdateAccount" alignment="CENTER" layoutX="3.0" layoutY="163.0" onAction="#hlUpdateAccount" prefHeight="23.0" prefWidth="194.0" text="Edit/Update" />
-                        <Button fx:id="btnLogOut" layoutX="3.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnLogOut" prefHeight="40.0" prefWidth="196.0" text="logOut" />
+                        <Hyperlink fx:id="hlEditUpdateAccount" alignment="CENTER" layoutX="3.0" layoutY="163.0" prefHeight="23.0" prefWidth="194.0" text="Edit/Update" />
+                        <Button fx:id="btnLogOut" layoutX="3.0" layoutY="184.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="196.0" text="logOut" />
                      </children>
                   </AnchorPane>
                </graphic>
@@ -437,7 +437,7 @@
                         <Image url="@img/Users-icon.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="lblUsrName1" layoutX="52.0" layoutY="17.0" text="Rifat" />
+                  <Label fx:id="lblUsrName1" layoutX="52.0" layoutY="17.0" text="User" />
                </children>
             </AnchorPane>
          </graphic>
