@@ -34,7 +34,7 @@
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="437.0">
                                             <children>
-                                                <TextField fx:id="tfFindCourse" layoutX="14.0" layoutY="26.0" prefHeight="40.0" prefWidth="300.0" promptText="Nhập từ khóa">
+                                                <TextField fx:id="tfFindCourse" layoutX="14.0" layoutY="26.0" prefHeight="40.0" prefWidth="300.0" promptText="Tìm kiếm theo tên khóa học">
                                                     <font>
                                                         <Font size="15.0" />
                                                     </font>
@@ -101,32 +101,32 @@
                                                                 <Font size="20.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id="lblCourseName" text="Label" GridPane.columnIndex="1">
+                                                        <Label fx:id="lblCourseName" GridPane.columnIndex="1">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id="lblCoursePrice" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                        <Label fx:id="lblCoursePrice" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id="lblCourseAuthor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                        <Label fx:id="lblCourseAuthor" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id="lblCourseContent" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                        <Label fx:id="lblCourseContent" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id="lblCourseDuration" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                        <Label fx:id="lblCourseDuration" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id="lblCourseType" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                        <Label fx:id="lblCourseType" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>
@@ -159,7 +159,7 @@
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="611.0">
                                             <children>
-                                                <TextField fx:id="tfFindCourseAdmin" layoutX="14.0" layoutY="26.0" prefHeight="40.0" prefWidth="300.0" promptText="Nhập từ khóa">
+                                                <TextField fx:id="tfFindCourseAdmin" layoutX="14.0" layoutY="26.0" prefHeight="40.0" prefWidth="300.0" promptText="Tìm kiếm theo tên khóa học">
                                                     <font>
                                                         <Font size="15.0" />
                                                     </font>
@@ -343,32 +343,32 @@
                                                                 <Font size="20.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id="lblCourseNameCart" text="Label" GridPane.columnIndex="1">
+                                                        <Label fx:id="lblCourseNameCart" GridPane.columnIndex="1">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id="lblCoursePriceCart" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                        <Label fx:id="lblCoursePriceCart" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id="lblCourseAuthorCart" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                        <Label fx:id="lblCourseAuthorCart" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id="lblCourseContentCart" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                        <Label fx:id="lblCourseContentCart" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id="lblCourseDurationCart" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                        <Label fx:id="lblCourseDurationCart" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id="lblCourseTypeCart" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                        <Label fx:id="lblCourseTypeCart" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>

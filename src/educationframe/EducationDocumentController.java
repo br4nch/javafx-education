@@ -419,6 +419,27 @@ public class EducationDocumentController implements Initializable {
         });
 
     }
+    
+    public void getRowValueAdmin() {
+        tvCourse.setRowFactory(tv -> {
+            TableRow<Course> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
+                        && event.getClickCount() == 1) {
+
+                    Course clickedRow = row.getItem();
+                    tfCourseNameAdmin.setText(clickedRow.getName());
+                    tfCourseTypeAdmin.setText(clickedRow.getType());
+                    tfCourseDurationAdmin.setText(String.valueOf(clickedRow.getDuration()));
+                    tfCourseContentAdmin.setText(clickedRow.getContent());
+                    tfCourseAuthorAdmin.setText(clickedRow.getAuthor());
+                    tfCoursePriceAdmin.setText(clickedRow.getPrice());
+                }
+            });
+            return row;
+        });
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -429,6 +450,7 @@ public class EducationDocumentController implements Initializable {
         setButton(false);
         lblUsername.setText("Hello " + this.usernameProfile);
         getRowValue();
+        getRowValueAdmin();
     }
 
 }

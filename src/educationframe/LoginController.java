@@ -66,15 +66,11 @@ public class LoginController implements Initializable {
     public User getUser(String username) {
         collection = database.getCollection("user");
         doc = new Document("username", username);
-        Document userDoc = new Document();
+        Document userDoc = collection.find(doc).first();
         type = new TypeToken<User>() {
         }.getType();
-        if (userDoc == null) {
-            userDoc = collection.find(doc).first();
+        if (userDoc != null) {
             user = gson.fromJson(userDoc.toJson(), type);
-        } else {
-            FxDialog.showError("Lỗi", "Tài khoản này không tồn tại, bạn có muốn đăng ký mới?");
-            throw new NullPointerException("Tìm không thấy username vừa nhập");
         }
         return user;
     }
@@ -117,8 +113,8 @@ public class LoginController implements Initializable {
     private void doLogin(ActionEvent event) throws IOException {
         String username = tfUsername.getText().toLowerCase();
         String password = tfPassword.getText().toLowerCase();
+        checkLogin(username.trim(), password.trim());
         if (!username.isEmpty() && !password.isEmpty()) {
-            checkLogin(username, password);
             goToMain(event);
         } else {
             FxDialog.showError("Lỗi", "Bạn chưa nhập thông tin");
