@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
+   <children>
+      <Label layoutX="84.0" layoutY="34.0" text="Phần mềm đăng ký khóa học trực tuyến" textFill="#1b7575">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="106.0" layoutY="148.0" text="Người thực hiện:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="256.0" layoutY="148.0" text="Lê Thành Tâm">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="256.0" layoutY="174.0" text="Hạ Diệp Thanh Tú">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="106.0" layoutY="222.0" text="Ngày hoàn thành:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="249.0" layoutY="222.0" text="18/01/2017">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
