@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.result.DeleteResult;
 import dialog.FxDialog;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -58,7 +60,7 @@ import org.bson.types.ObjectId;
  */
 public class EducationDocumentController implements Initializable {
 
-    private ObjectId deleteId;
+    private ObjectId id;
 
     private String usernameProfile;
 
@@ -68,7 +70,7 @@ public class EducationDocumentController implements Initializable {
 
     private String typeEdit;
 
-    private Double durationEdit;
+    private String durationEdit;
 
     private String contentEdit;
 
@@ -281,14 +283,14 @@ public class EducationDocumentController implements Initializable {
     /**
      * @return the durationEdit
      */
-    public Double getDurationEdit() {
+    public String getDurationEdit() {
         return durationEdit;
     }
 
     /**
      * @param durationEdit the durationEdit to set
      */
-    public void setDurationEdit(Double durationEdit) {
+    public void setDurationEdit(String durationEdit) {
         this.durationEdit = durationEdit;
     }
 
@@ -337,15 +339,15 @@ public class EducationDocumentController implements Initializable {
     /**
      * @return the deleteId
      */
-    public ObjectId getDeleteId() {
-        return deleteId;
+    public ObjectId getId() {
+        return id;
     }
 
     /**
      * @param deleteId the deleteId to set
      */
-    public void setDeleteId(ObjectId deleteId) {
-        this.deleteId = deleteId;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public void setUsernameProfile(String user) {
@@ -401,16 +403,21 @@ public class EducationDocumentController implements Initializable {
 
     }
 
-    public void InsertDocument() {
+    public void InsertDocument(Document doc) {
+        collection = database.getCollection("course");
+        collection.insertOne(doc);
 
     }
 
     public void DeleteDocument(ObjectId id) {
         Document docDelete = new Document("_id", id);
         DeleteResult deleteResult = collection.deleteOne(docDelete);
+
     }
 
-    public void EditDocument() {
+    public void EditDocument(Document doc) {
+        collection = database.getCollection("course");
+        collection.updateOne(eq("_id", getId()), doc);
     }
 
     public void setTextField(boolean b) {
@@ -456,13 +463,13 @@ public class EducationDocumentController implements Initializable {
     @FXML
     void doDeleteCourse(ActionEvent event) {
         if (FxDialog.showConfirm("Thông báo", "Bạn có muốn xóa khóa học '" + tfCourseNameAdmin.getText() + "'?") == "OK") {
-            if (getDeleteId() == null) {
+            if (getId() == null) {
                 FxDialog.showWarning("Cảnh báo", "Bạn chưa chọn khóa học cần xóa");
             }
-            DeleteDocument(getDeleteId());
+            DeleteDocument(getId());
             ShowData();
             ShowDataAdmin();
-            setDeleteId(null);
+            setId(null);
         } else {
             return;
         }
@@ -470,7 +477,7 @@ public class EducationDocumentController implements Initializable {
 
     @FXML
     void doEditCourse(ActionEvent event) {
-        if (getDeleteId() == null) {
+        if (getId() == null) {
             FxDialog.showWarning("Cảnh báo", "Bạn chưa chọn khóa học cần sửa");
         } else {
             setTextField(true);
@@ -504,53 +511,47 @@ public class EducationDocumentController implements Initializable {
         setNull();
         setTextField(false);
         setButton(false);
+        setId(null);
     }
 
     @FXML
     void doSave(ActionEvent event) {
-        collection = database.getCollection("course");
-        String nameAdmin = tfCourseNameAdmin.getText();
-        String typeAdmin = tfCourseTypeAdmin.getText();
-        String durationAdmin = tfCourseDurationAdmin.getText();
-        String contentAdmin = tfCourseContentAdmin.getText();
-        String authorAdmin = tfCourseAuthorAdmin.getText();
-        String priceAdmin = tfCoursePriceAdmin.getText();
+        String nameAdmin = tfCourseNameAdmin.getText().trim();
+        String typeAdmin = tfCourseTypeAdmin.getText().trim();
+        String durationAdmin = tfCourseDurationAdmin.getText().trim();
+        String contentAdmin = tfCourseContentAdmin.getText().trim();
+        String authorAdmin = tfCourseAuthorAdmin.getText().trim();
+        String priceAdmin = tfCoursePriceAdmin.getText().trim();
         Document docInsert = new Document();
-        Document docEdit = new Document();
+        Document docSetTextEdit = new Document();
         if (!nameAdmin.isEmpty() || !typeAdmin.isEmpty() || !durationAdmin.isEmpty()
                 || !contentAdmin.isEmpty() || !authorAdmin.isEmpty() || !priceAdmin.isEmpty()) {
-            docInsert = new Document("name", nameAdmin.trim())
-                    .append("type", typeAdmin.trim())
-                    .append("duration", durationAdmin.trim())
-                    .append("content", contentAdmin.trim())
-                    .append("author", authorAdmin.trim())
-                    .append("price", priceAdmin.trim());
-            docEdit = new Document("name", nameAdmin.trim())
-                    .append("type", typeAdmin.trim())
-                    .append("duration", durationAdmin.trim())
-                    .append("content", contentAdmin.trim())
-                    .append("author", authorAdmin.trim())
-                    .append("price", priceAdmin.trim());
-            System.out.println(docEdit.toJson() + "\n" + docInsert.toJson() + "\n" + docEdit.toJson());
+            docInsert = new Document("name", nameAdmin)
+                    .append("type", typeAdmin)
+                    .append("duration", durationAdmin)
+                    .append("content", contentAdmin)
+                    .append("author", authorAdmin)
+                    .append("price", priceAdmin);
+            docSetTextEdit = new Document("$set", new Document("name", nameAdmin)
+                    .append("type", typeAdmin)
+                    .append("duration", durationAdmin)
+                    .append("content", contentAdmin)
+                    .append("author", authorAdmin)
+                    .append("price", priceAdmin));
         } else {
             FxDialog.showError("Lỗi", "Thông tin thêm khóa học chưa điền đầy đủ");
         }
-        if (check == true) {
-            collection.insertOne(docInsert);
+        if (check) {
+            InsertDocument(docInsert);
         } else {
-            Document docSetTextEdit = new Document("name", tfCourseNameAdmin.getText().trim())
-                    .append("type", tfCourseTypeAdmin.getText().trim())
-                    .append("duration", tfCourseDurationAdmin.getText().trim())
-                    .append("content", tfCourseContentAdmin.getText().trim())
-                    .append("author", tfCourseAuthorAdmin.getText().trim())
-                    .append("price", tfCoursePriceAdmin.getText().trim());
-            collection.updateOne(docEdit, docSetTextEdit);
+            EditDocument(docSetTextEdit);
         }
         ShowData();
         ShowDataAdmin();
         setNull();
         setTextField(false);
         setButton(false);
+        setId(null);
     }
 
     @FXML
@@ -585,9 +586,7 @@ public class EducationDocumentController implements Initializable {
                     lblCourseDuration.setText(String.valueOf(clickedRow.getDuration()));
                     lblCourseContent.setText(clickedRow.getContent());
                     lblCourseAuthor.setText(clickedRow.getAuthor());
-                    lblCoursePrice.setText(clickedRow.getPrice());
-                    System.out.println(clickedRow.getDuration());
-                    System.out.println(clickedRow.getPrice());
+                    lblCoursePrice.setText(String.valueOf(clickedRow.getPrice()));
                 }
             });
             return row;
@@ -608,14 +607,14 @@ public class EducationDocumentController implements Initializable {
                     tfCourseDurationAdmin.setText(String.valueOf(clickedRow.getDuration()));
                     tfCourseContentAdmin.setText(clickedRow.getContent());
                     tfCourseAuthorAdmin.setText(clickedRow.getAuthor());
-                    tfCoursePriceAdmin.setText(clickedRow.getPrice());
-                    setDeleteId(clickedRow.getId());
+                    tfCoursePriceAdmin.setText(String.valueOf(clickedRow.getPrice()));
+                    setId(clickedRow.getId());
                     setNameEdit(clickedRow.getName());
                     setTypeEdit(clickedRow.getType());
-                    setDurationEdit(clickedRow.getDuration());
+                    setDurationEdit(String.valueOf(clickedRow.getDuration()));
                     setContentEdit(clickedRow.getContent());
                     setAuthorEdit(clickedRow.getAuthor());
-                    setPriceEdit(clickedRow.getPrice());
+                    setPriceEdit(String.valueOf(clickedRow.getPrice()));
                 }
             });
             return row;

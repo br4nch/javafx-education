@@ -228,17 +228,7 @@
                                                                 <Font size="15.0" />
                                                             </font>
                                                         </TextField>
-                                                        <TextField fx:id="tfCoursePriceAdmin" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                                            <font>
-                                                                <Font size="15.0" />
-                                                            </font>
-                                                        </TextField>
-                                                        <TextField fx:id="tfCourseAuthorAdmin" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                                            <font>
-                                                                <Font size="15.0" />
-                                                            </font>
-                                                        </TextField>
-                                                        <TextField fx:id="tfCourseContentAdmin" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                        <TextField fx:id="tfCourseTypeAdmin" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>
@@ -248,7 +238,17 @@
                                                                 <Font size="15.0" />
                                                             </font>
                                                         </TextField>
-                                                        <TextField fx:id="tfCourseTypeAdmin" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                        <TextField fx:id="tfCourseContentAdmin" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                            <font>
+                                                                <Font size="15.0" />
+                                                            </font>
+                                                        </TextField>
+                                                        <TextField fx:id="tfCourseAuthorAdmin" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                            <font>
+                                                                <Font size="15.0" />
+                                                            </font>
+                                                        </TextField>
+                                                        <TextField fx:id="tfCoursePriceAdmin" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                                             <font>
                                                                 <Font size="15.0" />
                                                             </font>

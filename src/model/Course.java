@@ -20,13 +20,13 @@ public class Course {
     private Double duration;
     private String content;
     private String author;
-    private String price;
+    private Double price;
 
     public Course() {
     }
 
     public Course(ObjectId _id, String name, String type, Double duration,
-            String content, String author, String price) {
+            String content, String author, Double price) {
         this._id = _id;
         this.name = name;
         this.type = type;
@@ -123,14 +123,14 @@ public class Course {
     /**
      * @return the price
      */
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     /**
      * @param price the price to set
      */
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
