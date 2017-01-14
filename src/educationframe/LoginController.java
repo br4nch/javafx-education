@@ -77,7 +77,6 @@ public class LoginController implements Initializable {
 
     public void checkLogin(String username, String password) {
         user = getUser(username);
-        System.out.println(user.getPassword() + " " + user.getUsername());
         if (!username.equals(user.getUsername()) && !password.equals(user.getPassword())) {
             FxDialog.showError("Đăng nhập thất bại", "Kiểm tra lại username hoặc password");
         } else {
@@ -113,8 +112,8 @@ public class LoginController implements Initializable {
     private void doLogin(ActionEvent event) throws IOException {
         String username = tfUsername.getText().toLowerCase();
         String password = tfPassword.getText().toLowerCase();
-        checkLogin(username.trim(), password.trim());
         if (!username.isEmpty() && !password.isEmpty()) {
+            checkLogin(username.trim(), password.trim());
             goToMain(event);
         } else {
             FxDialog.showError("Lỗi", "Bạn chưa nhập thông tin");

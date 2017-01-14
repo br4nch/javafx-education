@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
 import dialog.FxDialog;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -49,6 +50,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -56,9 +58,23 @@ import javafx.scene.shape.Circle;
  */
 public class EducationDocumentController implements Initializable {
 
+    private ObjectId deleteId;
+
     private String usernameProfile;
 
     private boolean check;
+
+    private String nameEdit;
+
+    private String typeEdit;
+
+    private Double durationEdit;
+
+    private String contentEdit;
+
+    private String authorEdit;
+
+    private String priceEdit;
 
     //FXML----------------------------------------------------------------------
     @FXML
@@ -213,6 +229,7 @@ public class EducationDocumentController implements Initializable {
 
     @FXML
     private MenuButton menuBtn;
+
     //VARIABLES-----------------------------------------------------------------
     Course course = new Course();
 
@@ -233,6 +250,20 @@ public class EducationDocumentController implements Initializable {
     private Type type;
 
     //GETTER-SETTER-------------------------------------------------------------
+    /**
+     * @return the deleteId
+     */
+    public ObjectId getDeleteId() {
+        return deleteId;
+    }
+
+    /**
+     * @param deleteId the deleteId to set
+     */
+    public void setDeleteId(ObjectId deleteId) {
+        this.deleteId = deleteId;
+    }
+
     public void setUsernameProfile(String user) {
         this.usernameProfile = user;
     }
@@ -290,8 +321,9 @@ public class EducationDocumentController implements Initializable {
 
     }
 
-    public void DeleteDocument() {
-
+    public void DeleteDocument(ObjectId id) {
+        Document docDelete = new Document("_id", id);
+        DeleteResult deleteResult = collection.deleteOne(docDelete);
     }
 
     public void EditDocument() {
@@ -339,14 +371,29 @@ public class EducationDocumentController implements Initializable {
 
     @FXML
     void doDeleteCourse(ActionEvent event) {
+        if (FxDialog.showConfirm("Thông báo", "Bạn có muốn xóa khóa học '" + tfCourseNameAdmin.getText() + "'?") == "OK") {
+            if (getDeleteId() == null) {
+                FxDialog.showWarning("Cảnh báo", "Bạn chưa chọn khóa học cần xóa");
+            }
+            DeleteDocument(getDeleteId());
+            ShowData();
+            ShowDataAdmin();
+            setDeleteId(null);
+        } else {
+            return;
+        }
     }
 
     @FXML
     void doEditCourse(ActionEvent event) {
-        setTextField(true);
-        tfCourseNameAdmin.requestFocus();
-        setButton(true);
-        check = false;
+        if (getDeleteId() == null) {
+            FxDialog.showWarning("Cảnh báo", "Bạn chưa chọn khóa học cần sửa");
+        } else {
+            setTextField(true);
+            tfCourseNameAdmin.requestFocus();
+            setButton(true);
+            check = false;
+        }
     }
 
     @FXML
@@ -377,7 +424,49 @@ public class EducationDocumentController implements Initializable {
 
     @FXML
     void doSave(ActionEvent event) {
-
+        collection = database.getCollection("course");
+        String nameAdmin = tfCourseNameAdmin.getText();
+        String typeAdmin = tfCourseTypeAdmin.getText();
+        String durationAdmin = tfCourseDurationAdmin.getText();
+        String contentAdmin = tfCourseContentAdmin.getText();
+        String authorAdmin = tfCourseAuthorAdmin.getText();
+        String priceAdmin = tfCoursePriceAdmin.getText();
+        Document docInsert = new Document();
+        Document docEdit = new Document();
+        if (!nameAdmin.isEmpty() || !typeAdmin.isEmpty() || !durationAdmin.isEmpty()
+                || !contentAdmin.isEmpty() || !authorAdmin.isEmpty() || !priceAdmin.isEmpty()) {
+            docInsert = new Document("name", nameAdmin.trim())
+                    .append("type", typeAdmin.trim())
+                    .append("duration", durationAdmin.trim())
+                    .append("content", contentAdmin.trim())
+                    .append("author", authorAdmin.trim())
+                    .append("price", priceAdmin.trim());
+            docEdit = new Document("name", nameAdmin.trim())
+                    .append("type", typeAdmin.trim())
+                    .append("duration", durationAdmin.trim())
+                    .append("content", contentAdmin.trim())
+                    .append("author", authorAdmin.trim())
+                    .append("price", priceAdmin.trim());
+            System.out.println(docEdit.toJson() + "\n" + docInsert.toJson() + "\n" + docEdit.toJson());
+        } else {
+            FxDialog.showError("Lỗi", "Thông tin thêm khóa học chưa điền đầy đủ");
+        }
+        if (check == true) {
+            collection.insertOne(docInsert);
+        } else {
+            Document docSetTextEdit = new Document("name", tfCourseNameAdmin.getText().trim())
+                    .append("type", tfCourseTypeAdmin.getText().trim())
+                    .append("duration", tfCourseDurationAdmin.getText().trim())
+                    .append("content", tfCourseContentAdmin.getText().trim())
+                    .append("author", tfCourseAuthorAdmin.getText().trim())
+                    .append("price", tfCoursePriceAdmin.getText().trim());
+            collection.updateOne(docEdit, docSetTextEdit);
+        }
+        ShowData();
+        ShowDataAdmin();
+        setNull();
+        setTextField(false);
+        setButton(false);
     }
 
     @FXML
@@ -413,15 +502,17 @@ public class EducationDocumentController implements Initializable {
                     lblCourseContent.setText(clickedRow.getContent());
                     lblCourseAuthor.setText(clickedRow.getAuthor());
                     lblCoursePrice.setText(clickedRow.getPrice());
+                    System.out.println(clickedRow.getDuration());
+                    System.out.println(clickedRow.getPrice());
                 }
             });
             return row;
         });
 
     }
-    
+
     public void getRowValueAdmin() {
-        tvCourse.setRowFactory(tv -> {
+        tvCourseAdmin.setRowFactory(tv -> {
             TableRow<Course> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
@@ -434,6 +525,7 @@ public class EducationDocumentController implements Initializable {
                     tfCourseContentAdmin.setText(clickedRow.getContent());
                     tfCourseAuthorAdmin.setText(clickedRow.getAuthor());
                     tfCoursePriceAdmin.setText(clickedRow.getPrice());
+                    setDeleteId(clickedRow.getId());
                 }
             });
             return row;
@@ -448,7 +540,10 @@ public class EducationDocumentController implements Initializable {
         ShowDataAdmin();
         setTextField(false);
         setButton(false);
-        lblUsername.setText("Hello " + this.usernameProfile);
+        if (this.usernameProfile == null) {
+            this.usernameProfile = "";
+        }
+        lblUsername.setText("Hello Tu " + this.usernameProfile);
         getRowValue();
         getRowValueAdmin();
     }
