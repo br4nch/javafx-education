@@ -67,14 +67,14 @@ public class LoginController implements Initializable {
         collection = database.getCollection("user");
         doc = new Document("username", username);
         Document userDoc = new Document();
-        if (null != userDoc) {
+        type = new TypeToken<User>() {
+        }.getType();
+        if (userDoc == null) {
             userDoc = collection.find(doc).first();
-            type = new TypeToken<User>() {
-            }.getType();
             user = gson.fromJson(userDoc.toJson(), type);
-            System.out.println(user.getUsername() + " " + user.getPassword());
         } else {
             FxDialog.showError("Lỗi", "Tài khoản này không tồn tại, bạn có muốn đăng ký mới?");
+            throw new NullPointerException("Tìm không thấy username vừa nhập");
         }
         return user;
     }

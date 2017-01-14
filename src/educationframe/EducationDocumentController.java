@@ -382,7 +382,7 @@ public class EducationDocumentController implements Initializable {
 
     @FXML
     void doLogout(ActionEvent event) throws IOException {
-        if (FxDialog.showConfirm("Thong bao", "Ban co muon thoat?") == "OK") {
+        if (FxDialog.showConfirm("Thông báo", "Bạn có muốn thoát?") == "OK") {
             Parent register = FXMLLoader.load(getClass().getResource("Login.fxml"));
             Scene registerScene = new Scene(register);
             FadeTransition ft = new FadeTransition(Duration.millis(1500), register);
