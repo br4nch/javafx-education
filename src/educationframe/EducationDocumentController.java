@@ -251,6 +251,90 @@ public class EducationDocumentController implements Initializable {
 
     //GETTER-SETTER-------------------------------------------------------------
     /**
+     * @return the nameEdit
+     */
+    public String getNameEdit() {
+        return nameEdit;
+    }
+
+    /**
+     * @param nameEdit the nameEdit to set
+     */
+    public void setNameEdit(String nameEdit) {
+        this.nameEdit = nameEdit;
+    }
+
+    /**
+     * @return the typeEdit
+     */
+    public String getTypeEdit() {
+        return typeEdit;
+    }
+
+    /**
+     * @param typeEdit the typeEdit to set
+     */
+    public void setTypeEdit(String typeEdit) {
+        this.typeEdit = typeEdit;
+    }
+
+    /**
+     * @return the durationEdit
+     */
+    public Double getDurationEdit() {
+        return durationEdit;
+    }
+
+    /**
+     * @param durationEdit the durationEdit to set
+     */
+    public void setDurationEdit(Double durationEdit) {
+        this.durationEdit = durationEdit;
+    }
+
+    /**
+     * @return the contentEdit
+     */
+    public String getContentEdit() {
+        return contentEdit;
+    }
+
+    /**
+     * @param contentEdit the contentEdit to set
+     */
+    public void setContentEdit(String contentEdit) {
+        this.contentEdit = contentEdit;
+    }
+
+    /**
+     * @return the authorEdit
+     */
+    public String getAuthorEdit() {
+        return authorEdit;
+    }
+
+    /**
+     * @param authorEdit the authorEdit to set
+     */
+    public void setAuthorEdit(String authorEdit) {
+        this.authorEdit = authorEdit;
+    }
+
+    /**
+     * @return the priceEdit
+     */
+    public String getPriceEdit() {
+        return priceEdit;
+    }
+
+    /**
+     * @param priceEdit the priceEdit to set
+     */
+    public void setPriceEdit(String priceEdit) {
+        this.priceEdit = priceEdit;
+    }
+
+    /**
      * @return the deleteId
      */
     public ObjectId getDeleteId() {
@@ -526,6 +610,12 @@ public class EducationDocumentController implements Initializable {
                     tfCourseAuthorAdmin.setText(clickedRow.getAuthor());
                     tfCoursePriceAdmin.setText(clickedRow.getPrice());
                     setDeleteId(clickedRow.getId());
+                    setNameEdit(clickedRow.getName());
+                    setTypeEdit(clickedRow.getType());
+                    setDurationEdit(clickedRow.getDuration());
+                    setContentEdit(clickedRow.getContent());
+                    setAuthorEdit(clickedRow.getAuthor());
+                    setPriceEdit(clickedRow.getPrice());
                 }
             });
             return row;
