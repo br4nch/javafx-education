@@ -19,10 +19,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 import javafx.animation.FadeTransition;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,12 +50,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import javax.sound.midi.ControllerEventListener;
 import org.bson.types.ObjectId;
 
@@ -63,6 +70,8 @@ import org.bson.types.ObjectId;
 public class EducationDocumentController implements Initializable {
 
     private ObjectId id;
+
+    private ObjectId idCart;
 
     private String usernameProfile;
 
@@ -83,9 +92,6 @@ public class EducationDocumentController implements Initializable {
     //FXML----------------------------------------------------------------------
     @FXML
     private TextField tfFindCourse;
-
-    @FXML
-    private Button btnFindCourse;
 
     @FXML
     private TableView<Course> tvCourse;
@@ -122,9 +128,6 @@ public class EducationDocumentController implements Initializable {
 
     @FXML
     private TextField tfFindCourseAdmin;
-
-    @FXML
-    private Button btnFindCourseAdmin;
 
     @FXML
     private TableView<Course> tvCourseAdmin;
@@ -241,6 +244,8 @@ public class EducationDocumentController implements Initializable {
 
     List<Course> listCourse = new ArrayList<Course>();
 
+    List<Course> arrayCourse = new ArrayList<Course>();
+
     MongoClient client = new MongoClient("localhost", 27017);
 
     MongoDatabase database = client.getDatabase("education");
@@ -254,6 +259,20 @@ public class EducationDocumentController implements Initializable {
     private Type type;
 
     //GETTER-SETTER-------------------------------------------------------------
+    /**
+     * @return the idCart
+     */
+    public ObjectId getIdCart() {
+        return idCart;
+    }
+
+    /**
+     * @param idCart the idCart to set
+     */
+    public void setIdCart(ObjectId idCart) {
+        this.idCart = idCart;
+    }
+
     /**
      * @return the nameEdit
      */
@@ -410,6 +429,17 @@ public class EducationDocumentController implements Initializable {
 
     }
 
+    public void ShowDataCart() {
+        arrayCourse.add(getCourse(getNameEdit()));
+        ObservableList<Course> obsList = FXCollections.observableArrayList(arrayCourse);
+        colCourseNameCart.setCellValueFactory(new PropertyValueFactory<Course, String>("name"));
+        colCourseTypeCart.setCellValueFactory(new PropertyValueFactory<Course, String>("type"));
+        colCoursePriceCart.setCellValueFactory(new PropertyValueFactory<Course, String>("price"));
+        tvCourseCart.setItems(obsList);
+        tvCourseCart.getColumns().clear();
+        tvCourseCart.getColumns().addAll(colCourseNameCart, colCourseTypeCart, colCoursePriceCart);
+    }
+
     public void InsertDocument(Document doc) {
         collection = database.getCollection("course");
         collection.insertOne(doc);
@@ -461,23 +491,46 @@ public class EducationDocumentController implements Initializable {
         Document nameDoc = collection.find(doc).first();
         if (null != nameDoc) {
             course = gson.fromJson(nameDoc.toJson(), type);
-            System.out.println(course.getName() + " " + course.getAuthor() + " " + course.getContent() + " " + course.getType() + " " + course.getPrice() + " " + course.getDuration());
         }
         return course;
     }
 
     @FXML
     void AddToCart(ActionEvent event) {
+        ShowDataCart();
+        setIdCart(null);
     }
 
     @FXML
     void doAccept(ActionEvent event) {
+        if (getIdCart() == null) {
+            FxDialog.showError("Lỗi", "Bạn chưa chọn hàng để accept");
+        } else {
+            FxDialog.showInformation("Thông báo", "Bạn đã thanh toán thành công");
+        }
+    }
 
+    public void setLabelNull() {
+        lblCourseNameCart.setText(null);
+        lblCourseTypeCart.setText(null);
+        lblCourseDurationCart.setText(null);
+        lblCourseContentCart.setText(null);
+        lblCourseAuthorCart.setText(null);
+        lblCoursePriceCart.setText(null);
     }
 
     @FXML
     void doCancel(ActionEvent event) {
+        if (getIdCart() == null) {
+            FxDialog.showError("Lỗi", "Bạn chưa chọn hàng để cancel");
 
+        } else {
+            setIdCart(null);
+            setLabelNull();
+            FxDialog.showWarning("Cảnh báo", "Bạn vừa bỏ thanh toán");
+            arrayCourse.clear();
+            ShowDataCart();
+        }
     }
 
     @FXML
@@ -489,6 +542,8 @@ public class EducationDocumentController implements Initializable {
             DeleteDocument(getId());
             ShowData();
             ShowDataAdmin();
+            FilterCourse(tvCourse, tfFindCourse);
+            FilterCourse(tvCourseAdmin, tfFindCourseAdmin);
             setId(null);
         } else {
             return;
@@ -507,30 +562,67 @@ public class EducationDocumentController implements Initializable {
         }
     }
 
-    @FXML
-    void doFindCourse(ActionEvent event) {
-        String find = tfFindCourse.getText().toLowerCase().trim();
-        listCourse.add(getCourse(find));;
+    public void FilterCourse(TableView tv, TextField tf) {
         ObservableList<Course> obsList = FXCollections.observableArrayList(listCourse);
-        colCourseName.setCellValueFactory(new PropertyValueFactory<Course, String>("name"));
-        colCourseType.setCellValueFactory(new PropertyValueFactory<Course, String>("type"));
-        colCoursePrice.setCellValueFactory(new PropertyValueFactory<Course, String>("price"));
-        tvCourse.setItems(obsList);
-        tvCourse.getColumns().clear();
-        tvCourse.getColumns().addAll(colCourseName, colCourseType, colCoursePrice);
+        FilteredList<Course> filteredData = new FilteredList<>(obsList, p -> true);
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(course -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (course.getName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches first name.
+                } else if (course.getType().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches last name.
+                }
+                return false; // Does not match.
+            });
+        });
+        SortedList<Course> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tv.comparatorProperty());
+        tv.setItems(sortedData);
+
     }
 
-    @FXML
-    void doFindCourseAdmin(ActionEvent event) {
-        String find = tfFindCourseAdmin.getText().toLowerCase().trim();
-        listCourse.add(getCourse(find));;
-        ObservableList<Course> obsList = FXCollections.observableArrayList(listCourse);
-        colCourseNameAdmin.setCellValueFactory(new PropertyValueFactory<Course, String>("name"));
-        colCourseTypeAdmin.setCellValueFactory(new PropertyValueFactory<Course, String>("type"));
-        colCoursePriceAdmin.setCellValueFactory(new PropertyValueFactory<Course, String>("price"));
-        tvCourseAdmin.setItems(obsList);
-        tvCourseAdmin.getColumns().clear();
-        tvCourseAdmin.getColumns().addAll(colCourseNameAdmin, colCourseTypeAdmin, colCoursePriceAdmin);
+    public void numericTF() {
+        UnaryOperator<Change> integerFilter = change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("-?([1-9][0-9]*)?")) {
+                return change;
+            } else if ("-".equals(change.getText())) {
+                if (change.getControlText().startsWith("-")) {
+                    change.setText("");
+                    change.setRange(0, 1);
+                    change.setCaretPosition(change.getCaretPosition() - 2);
+                    change.setAnchor(change.getAnchor() - 2);
+                    return change;
+                } else {
+                    change.setRange(0, 0);
+                    return change;
+                }
+            }
+            return null;
+        };
+        // modified version of standard converter that evaluates an empty string 
+        // as zero instead of null:
+        StringConverter<Integer> converter = new IntegerStringConverter() {
+            @Override
+            public Integer fromString(String s) {
+                if (s.isEmpty()) {
+                    return 0;
+                }
+                return super.fromString(s);
+            }
+        };
+
+        TextFormatter<Integer> textFormatter
+                = new TextFormatter<Integer>(converter, 0, integerFilter);
+        tfCoursePriceAdmin.setTextFormatter(textFormatter);
     }
 
     @FXML
@@ -584,6 +676,8 @@ public class EducationDocumentController implements Initializable {
         }
         ShowData();
         ShowDataAdmin();
+        FilterCourse(tvCourse, tfFindCourse);
+        FilterCourse(tvCourseAdmin, tfFindCourseAdmin);
         setNull();
         setTextField(false);
         setButton(false);
@@ -600,7 +694,6 @@ public class EducationDocumentController implements Initializable {
             ft.setToValue(1.0);
             ft.play();
             Stage appStage = (Stage) menuBtn.getScene().getWindow();
-//        .getSource()).getScene().getWindow();
             appStage.setTitle("Login");
             appStage.setScene(registerScene);
             appStage.show();
@@ -608,26 +701,20 @@ public class EducationDocumentController implements Initializable {
             return;
         }
     }
-     @FXML
-    void doAbout(ActionEvent event) throws IOException {
-     
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(EducationDocumentController.class.getResource("About.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
 
-      
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("About");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-           
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-         dialogStage.showAndWait();
+    @FXML
+    void doAbout(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(EducationDocumentController.class.getResource("About.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("About");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+        dialogStage.showAndWait();
         return;
-        
     }
-    
-    
 
     public void getRowValue() {
         tvCourse.setRowFactory(tv -> {
@@ -635,7 +722,6 @@ public class EducationDocumentController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
                         && event.getClickCount() == 1) {
-
                     Course clickedRow = row.getItem();
                     lblCourseName.setText(clickedRow.getName());
                     lblCourseType.setText(clickedRow.getType());
@@ -643,6 +729,7 @@ public class EducationDocumentController implements Initializable {
                     lblCourseContent.setText(clickedRow.getContent());
                     lblCourseAuthor.setText(clickedRow.getAuthor());
                     lblCoursePrice.setText(String.valueOf(clickedRow.getPrice()));
+                    setNameEdit(clickedRow.getName());
                 }
             });
             return row;
@@ -650,14 +737,12 @@ public class EducationDocumentController implements Initializable {
 
     }
 
-    
     public void getRowValueAdmin() {
         tvCourseAdmin.setRowFactory(tv -> {
             TableRow<Course> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
                         && event.getClickCount() == 1) {
-
                     Course clickedRow = row.getItem();
                     tfCourseNameAdmin.setText(clickedRow.getName());
                     tfCourseTypeAdmin.setText(clickedRow.getType());
@@ -666,12 +751,27 @@ public class EducationDocumentController implements Initializable {
                     tfCourseAuthorAdmin.setText(clickedRow.getAuthor());
                     tfCoursePriceAdmin.setText(String.valueOf(clickedRow.getPrice()));
                     setId(clickedRow.getId());
-                    setNameEdit(clickedRow.getName());
-                    setTypeEdit(clickedRow.getType());
-                    setDurationEdit(String.valueOf(clickedRow.getDuration()));
-                    setContentEdit(clickedRow.getContent());
-                    setAuthorEdit(clickedRow.getAuthor());
-                    setPriceEdit(String.valueOf(clickedRow.getPrice()));
+                }
+            });
+            return row;
+        });
+
+    }
+
+    public void getRowValueCart() {
+        tvCourseCart.setRowFactory(tv -> {
+            TableRow<Course> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
+                        && event.getClickCount() == 1) {
+                    Course clickedRow = row.getItem();
+                    lblCourseNameCart.setText(clickedRow.getName());
+                    lblCourseTypeCart.setText(clickedRow.getType());
+                    lblCourseDurationCart.setText(String.valueOf(clickedRow.getDuration()));
+                    lblCourseContentCart.setText(clickedRow.getContent());
+                    lblCourseAuthorCart.setText(clickedRow.getAuthor());
+                    lblCoursePriceCart.setText(String.valueOf(clickedRow.getPrice()));
+                    setIdCart(clickedRow.getId());
                 }
             });
             return row;
@@ -682,8 +782,11 @@ public class EducationDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-//        ShowData();
-//        ShowDataAdmin();
+        ShowData();
+        ShowDataAdmin();
+        FilterCourse(tvCourse, tfFindCourse);
+        FilterCourse(tvCourseAdmin, tfFindCourseAdmin);
+        numericTF();
         setTextField(false);
         setButton(false);
         if (this.usernameProfile == null) {
@@ -692,6 +795,6 @@ public class EducationDocumentController implements Initializable {
         lblUsername.setText("Hello Tu " + this.usernameProfile);
         getRowValue();
         getRowValueAdmin();
+        getRowValueCart();
     }
-
 }
