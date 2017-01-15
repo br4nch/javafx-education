@@ -375,7 +375,12 @@ public class EducationDocumentController implements Initializable {
             type = new TypeToken<User>() {
             }.getType();
             user = gson.fromJson(userDoc.toJson(), type);
-            System.out.println(user.getUsername() + " " + user.getPassword());
+            if (user == null) {
+                FxDialog.showError("Lỗi", "Username này không tồn tại");
+                return null;
+            } else {
+                return user;
+            }
         }
         return user;
     }
@@ -446,6 +451,19 @@ public class EducationDocumentController implements Initializable {
         this.btnNotSave.setDisable(!b);
     }
 
+    public Course getCourse(String name) {
+        collection = database.getCollection("course");
+        doc = new Document("name", name);
+        type = new TypeToken<Course>() {
+        }.getType();
+        Document nameDoc = collection.find(doc).first();
+        if (null != nameDoc) {
+            course = gson.fromJson(nameDoc.toJson(), type);
+            System.out.println(course.getName() + " " + course.getAuthor() + " " + course.getContent() + " " + course.getType() + " " + course.getPrice() + " " + course.getDuration());
+        }
+        return course;
+    }
+
     @FXML
     void AddToCart(ActionEvent event) {
     }
@@ -489,12 +507,28 @@ public class EducationDocumentController implements Initializable {
 
     @FXML
     void doFindCourse(ActionEvent event) {
-
+        String find = tfFindCourse.getText().toLowerCase().trim();
+        listCourse.add(getCourse(find));;
+        ObservableList<Course> obsList = FXCollections.observableArrayList(listCourse);
+        colCourseName.setCellValueFactory(new PropertyValueFactory<Course, String>("name"));
+        colCourseType.setCellValueFactory(new PropertyValueFactory<Course, String>("type"));
+        colCoursePrice.setCellValueFactory(new PropertyValueFactory<Course, String>("price"));
+        tvCourse.setItems(obsList);
+        tvCourse.getColumns().clear();
+        tvCourse.getColumns().addAll(colCourseName, colCourseType, colCoursePrice);
     }
 
     @FXML
     void doFindCourseAdmin(ActionEvent event) {
-
+        String find = tfFindCourseAdmin.getText().toLowerCase().trim();
+        listCourse.add(getCourse(find));;
+        ObservableList<Course> obsList = FXCollections.observableArrayList(listCourse);
+        colCourseNameAdmin.setCellValueFactory(new PropertyValueFactory<Course, String>("name"));
+        colCourseTypeAdmin.setCellValueFactory(new PropertyValueFactory<Course, String>("type"));
+        colCoursePriceAdmin.setCellValueFactory(new PropertyValueFactory<Course, String>("price"));
+        tvCourseAdmin.setItems(obsList);
+        tvCourseAdmin.getColumns().clear();
+        tvCourseAdmin.getColumns().addAll(colCourseNameAdmin, colCourseTypeAdmin, colCoursePriceAdmin);
     }
 
     @FXML
@@ -625,8 +659,8 @@ public class EducationDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        ShowData();
-        ShowDataAdmin();
+//        ShowData();
+//        ShowDataAdmin();
         setTextField(false);
         setButton(false);
         if (this.usernameProfile == null) {
