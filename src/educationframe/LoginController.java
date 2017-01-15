@@ -69,7 +69,7 @@ public class LoginController implements Initializable {
         Document userDoc = collection.find(doc).first();
         type = new TypeToken<User>() {
         }.getType();
-        if (userDoc != null) {
+        if (null != userDoc) {
             user = gson.fromJson(userDoc.toJson(), type);
         }
         return user;
