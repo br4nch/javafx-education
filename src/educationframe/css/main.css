@@ -62,7 +62,7 @@
 	-fx-background-position:left;
         
 }
-#btn8 {			
+#btnSave {			
 	
 	-fx-background-image: url("../img/blue_save.png");
 	-fx-background-size: 18 18;
@@ -70,7 +70,7 @@
 	-fx-background-position:left;
         
 }
-#btn9 {			
+#btnNotSave {			
 	
 	-fx-background-image: url("../img/save.png");
 	-fx-background-size: 18 18;

@@ -45,8 +45,10 @@ public class LoginController implements Initializable {
 
     @FXML
     private ImageView imgLogin;
+
     @FXML
     private JFXTextField tfUsername;
+
     @FXML
     private JFXPasswordField tfPassword;
 
@@ -65,22 +67,17 @@ public class LoginController implements Initializable {
         collection = database.getCollection("user");
         doc = new Document("username", username);
         Document userDoc = collection.find(doc).first();
-        System.out.println(userDoc.toJson());
-        if (null != userDoc) {
-            type = new TypeToken<User>() {
-            }.getType();
+        type = new TypeToken<User>() {
+        }.getType();
+        if (userDoc != null) {
             user = gson.fromJson(userDoc.toJson(), type);
-            System.out.println(user.getUsername() + " " + user.getPassword());
         }
         return user;
     }
 
     public void checkLogin(String username, String password) {
         user = getUser(username);
-        System.out.println(user.getPassword() + " " + user.getUsername());
-        if (!username.equals(user.getUsername())) {
-            FxDialog.showError("Lỗi", "Username không tồn tại, mời bạn đăng ký");
-        } else if (!username.equals(user.getUsername()) && !password.equals(user.getPassword())) {
+        if (!username.equals(user.getUsername()) && !password.equals(user.getPassword())) {
             FxDialog.showError("Đăng nhập thất bại", "Kiểm tra lại username hoặc password");
         } else {
             FxDialog.showInformation("Đăng nhập thành công", "Chào mừng đến với phần mềm quản lý dạy học");
@@ -96,7 +93,10 @@ public class LoginController implements Initializable {
     }
 
     public void goToMain(ActionEvent event) throws IOException {
-        Parent main = FXMLLoader.load(getClass().getResource("Main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
+        Parent main = (Parent) loader.load();
+        EducationDocumentController controller = loader.<EducationDocumentController>getController();
+        controller.setUsernameProfile(tfUsername.getText().toLowerCase());
         Scene mainScene = new Scene(main);
         FadeTransition ft = new FadeTransition(Duration.millis(1500), main);
         ft.setFromValue(0.0);
@@ -110,10 +110,10 @@ public class LoginController implements Initializable {
 
     @FXML
     private void doLogin(ActionEvent event) throws IOException {
-        String password = tfPassword.getText().toLowerCase();
         String username = tfUsername.getText().toLowerCase();
+        String password = tfPassword.getText().toLowerCase();
         if (!username.isEmpty() && !password.isEmpty()) {
-            checkLogin(username, password);
+            checkLogin(username.trim(), password.trim());
             goToMain(event);
         } else {
             FxDialog.showError("Lỗi", "Bạn chưa nhập thông tin");
