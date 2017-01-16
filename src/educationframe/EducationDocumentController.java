@@ -49,7 +49,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+import javax.sound.midi.ControllerEventListener;
 import org.bson.types.ObjectId;
 
 /**
@@ -571,6 +573,26 @@ public class EducationDocumentController implements Initializable {
             return;
         }
     }
+     @FXML
+    void doAbout(ActionEvent event) throws IOException {
+     
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(EducationDocumentController.class.getResource("About.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+      
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("About");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+           
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+         dialogStage.showAndWait();
+        return;
+        
+    }
+    
+    
 
     public void getRowValue() {
         tvCourse.setRowFactory(tv -> {
@@ -595,6 +617,7 @@ public class EducationDocumentController implements Initializable {
 
     }
 
+    
     public void getRowValueAdmin() {
         tvCourseAdmin.setRowFactory(tv -> {
             TableRow<Course> row = new TableRow<>();
