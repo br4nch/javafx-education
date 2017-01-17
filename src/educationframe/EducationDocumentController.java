@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import javafx.animation.FadeTransition;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -589,42 +590,6 @@ public class EducationDocumentController implements Initializable {
 
     }
 
-    public void numericTF() {
-        UnaryOperator<Change> integerFilter = change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("-?([1-9][0-9]*)?")) {
-                return change;
-            } else if ("-".equals(change.getText())) {
-                if (change.getControlText().startsWith("-")) {
-                    change.setText("");
-                    change.setRange(0, 1);
-                    change.setCaretPosition(change.getCaretPosition() - 2);
-                    change.setAnchor(change.getAnchor() - 2);
-                    return change;
-                } else {
-                    change.setRange(0, 0);
-                    return change;
-                }
-            }
-            return null;
-        };
-        // modified version of standard converter that evaluates an empty string 
-        // as zero instead of null:
-        StringConverter<Integer> converter = new IntegerStringConverter() {
-            @Override
-            public Integer fromString(String s) {
-                if (s.isEmpty()) {
-                    return 0;
-                }
-                return super.fromString(s);
-            }
-        };
-
-        TextFormatter<Integer> textFormatter
-                = new TextFormatter<Integer>(converter, 0, integerFilter);
-        tfCoursePriceAdmin.setTextFormatter(textFormatter);
-    }
-
     @FXML
     void doInsertCourse(ActionEvent event) {
         setNull();
@@ -644,35 +609,39 @@ public class EducationDocumentController implements Initializable {
 
     @FXML
     void doSave(ActionEvent event) {
-        String nameAdmin = tfCourseNameAdmin.getText().trim();
-        String typeAdmin = tfCourseTypeAdmin.getText().trim();
-        String durationAdmin = tfCourseDurationAdmin.getText().trim();
-        String contentAdmin = tfCourseContentAdmin.getText().trim();
-        String authorAdmin = tfCourseAuthorAdmin.getText().trim();
-        String priceAdmin = tfCoursePriceAdmin.getText().trim();
-        Document docInsert = new Document();
-        Document docSetTextEdit = new Document();
-        if (!nameAdmin.isEmpty() || !typeAdmin.isEmpty() || !durationAdmin.isEmpty()
-                || !contentAdmin.isEmpty() || !authorAdmin.isEmpty() || !priceAdmin.isEmpty()) {
-            docInsert = new Document("name", nameAdmin)
-                    .append("type", typeAdmin)
-                    .append("duration", durationAdmin)
-                    .append("content", contentAdmin)
-                    .append("author", authorAdmin)
-                    .append("price", priceAdmin);
-            docSetTextEdit = new Document("$set", new Document("name", nameAdmin)
-                    .append("type", typeAdmin)
-                    .append("duration", durationAdmin)
-                    .append("content", contentAdmin)
-                    .append("author", authorAdmin)
-                    .append("price", priceAdmin));
-        } else {
+
+        try {
+            String nameAdmin = tfCourseNameAdmin.getText().trim();
+            String typeAdmin = tfCourseTypeAdmin.getText().trim();
+            String durationAdmin = tfCourseDurationAdmin.getText().trim();
+            String contentAdmin = tfCourseContentAdmin.getText().trim();
+            String authorAdmin = tfCourseAuthorAdmin.getText().trim();
+            String priceAdmin = tfCoursePriceAdmin.getText().trim();
+            Document docInsert = new Document();
+            Document docSetTextEdit = new Document();
+            if (!nameAdmin.isEmpty() || !typeAdmin.isEmpty() || !durationAdmin.isEmpty()
+                    || !contentAdmin.isEmpty() || !authorAdmin.isEmpty() || !priceAdmin.isEmpty()) {
+                docInsert = new Document("name", nameAdmin)
+                        .append("type", typeAdmin)
+                        .append("duration", durationAdmin)
+                        .append("content", contentAdmin)
+                        .append("author", authorAdmin)
+                        .append("price", priceAdmin);
+                docSetTextEdit = new Document("$set", new Document("name", nameAdmin)
+                        .append("type", typeAdmin)
+                        .append("duration", durationAdmin)
+                        .append("content", contentAdmin)
+                        .append("author", authorAdmin)
+                        .append("price", priceAdmin));
+            }
+            if (check) {
+                InsertDocument(docInsert);
+            } else {
+                EditDocument(docSetTextEdit);
+            }
+        } catch (NullPointerException ex) {
             FxDialog.showError("Lỗi", "Thông tin thêm khóa học chưa điền đầy đủ");
-        }
-        if (check) {
-            InsertDocument(docInsert);
-        } else {
-            EditDocument(docSetTextEdit);
+            return;
         }
         ShowData();
         ShowDataAdmin();
@@ -779,6 +748,25 @@ public class EducationDocumentController implements Initializable {
 
     }
 
+    public void numericOnly() {
+        tfCourseDurationAdmin.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tfCourseDurationAdmin.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        tfCoursePriceAdmin.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tfCoursePriceAdmin.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -786,7 +774,7 @@ public class EducationDocumentController implements Initializable {
         ShowDataAdmin();
         FilterCourse(tvCourse, tfFindCourse);
         FilterCourse(tvCourseAdmin, tfFindCourseAdmin);
-        numericTF();
+        numericOnly();
         setTextField(false);
         setButton(false);
         if (this.usernameProfile == null) {
